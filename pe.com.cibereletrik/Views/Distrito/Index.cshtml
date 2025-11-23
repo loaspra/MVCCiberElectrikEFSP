@@ -1,0 +1,40 @@
+﻿@model IEnumerable<pe.com.cibereletrik.distrito>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nomdis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estdis)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomdis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estdis)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.coddis }) |
+            @Html.ActionLink("Details", "Details", new { id=item.coddis }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.coddis })
+        </td>
+    </tr>
+}
+
+</table>

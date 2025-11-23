@@ -1,0 +1,52 @@
+﻿@model IEnumerable<pe.com.cibereletrik.ticketpedido>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fecped)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estped)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cliente.nomcli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.empleado.nomemp)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecped)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estped)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cliente.nomcli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.empleado.nomemp)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.nroped }) |
+            @Html.ActionLink("Details", "Details", new { id=item.nroped }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.nroped })
+        </td>
+    </tr>
+}
+
+</table>

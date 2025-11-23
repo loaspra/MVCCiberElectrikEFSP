@@ -1,0 +1,1223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bdciberelectrik2026Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="codcat" />
+          </Key>
+          <Property Name="codcat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomcat" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="estcat" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="codcli" />
+          </Key>
+          <Property Name="codcli" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomcli" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="apepcli" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="apemcli" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="doccli" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dircli" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="telcli" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="celcli" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="corcli" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="estcli" Type="bit" Nullable="false" />
+          <Property Name="coddis" Type="int" Nullable="false" />
+          <Property Name="codtipd" Type="int" Nullable="false" />
+          <Property Name="codsex" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="detalleticketpedido">
+          <Key>
+            <PropertyRef Name="nrodet" />
+          </Key>
+          <Property Name="nrodet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="canent" Type="int" Nullable="false" />
+          <Property Name="preent" Type="money" Nullable="false" />
+          <Property Name="nroped" Type="int" Nullable="false" />
+          <Property Name="codpro" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="distrito">
+          <Key>
+            <PropertyRef Name="coddis" />
+          </Key>
+          <Property Name="coddis" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomdis" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="estdis" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="codemp" />
+          </Key>
+          <Property Name="codemp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomemp" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="apepemp" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="apememp" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="docemp" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="diremp" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="telemp" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="celemp" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="coremp" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="usuemp" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="claemp" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="estemp" Type="bit" Nullable="false" />
+          <Property Name="coddis" Type="int" Nullable="false" />
+          <Property Name="codrol" Type="int" Nullable="false" />
+          <Property Name="codtipd" Type="int" Nullable="false" />
+          <Property Name="codsex" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="marca">
+          <Key>
+            <PropertyRef Name="codmar" />
+          </Key>
+          <Property Name="codmar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nommar" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="estmar" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="codpro" />
+          </Key>
+          <Property Name="codpro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nompro" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="despro" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="prepro" Type="money" Nullable="false" />
+          <Property Name="canpro" Type="int" Nullable="false" />
+          <Property Name="fecing" Type="date" Nullable="false" />
+          <Property Name="estpro" Type="bit" Nullable="false" />
+          <Property Name="codcat" Type="int" Nullable="false" />
+          <Property Name="codmar" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="codrol" />
+          </Key>
+          <Property Name="codrol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomrol" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="estrol" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sexo">
+          <Key>
+            <PropertyRef Name="codsex" />
+          </Key>
+          <Property Name="codsex" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomsex" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="estsex" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ticketpedido">
+          <Key>
+            <PropertyRef Name="nroped" />
+          </Key>
+          <Property Name="nroped" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecped" Type="date" Nullable="false" />
+          <Property Name="codemp" Type="int" Nullable="false" />
+          <Property Name="codcli" Type="int" Nullable="false" />
+          <Property Name="estped" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tipodocumento">
+          <Key>
+            <PropertyRef Name="codtipd" />
+          </Key>
+          <Property Name="codtipd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomtipd" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="esttipd" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__cliente__coddis__4CA06362">
+          <End Role="distrito" Type="Self.distrito" Multiplicity="1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="distrito">
+              <PropertyRef Name="coddis" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="coddis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cliente__codsex__4E88ABD4">
+          <End Role="sexo" Type="Self.sexo" Multiplicity="1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sexo">
+              <PropertyRef Name="codsex" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="codsex" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cliente__codtipd__4D94879B">
+          <End Role="tipodocumento" Type="Self.tipodocumento" Multiplicity="1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipodocumento">
+              <PropertyRef Name="codtipd" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="codtipd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalleti__codpr__5629CD9C">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="detalleticketpedido" Type="Self.detalleticketpedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="codpro" />
+            </Principal>
+            <Dependent Role="detalleticketpedido">
+              <PropertyRef Name="codpro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalleti__nrope__5535A963">
+          <End Role="ticketpedido" Type="Self.ticketpedido" Multiplicity="1" />
+          <End Role="detalleticketpedido" Type="Self.detalleticketpedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ticketpedido">
+              <PropertyRef Name="nroped" />
+            </Principal>
+            <Dependent Role="detalleticketpedido">
+              <PropertyRef Name="nroped" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__empleado__coddis__46E78A0C">
+          <End Role="distrito" Type="Self.distrito" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="distrito">
+              <PropertyRef Name="coddis" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="coddis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__empleado__codrol__47DBAE45">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="codrol" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="codrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__empleado__codsex__49C3F6B7">
+          <End Role="sexo" Type="Self.sexo" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sexo">
+              <PropertyRef Name="codsex" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="codsex" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__empleado__codtip__48CFD27E">
+          <End Role="tipodocumento" Type="Self.tipodocumento" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipodocumento">
+              <PropertyRef Name="codtipd" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="codtipd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__producto__codcat__4316F928">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="codcat" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="codcat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__producto__codmar__440B1D61">
+          <End Role="marca" Type="Self.marca" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="marca">
+              <PropertyRef Name="codmar" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="codmar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ticketped__codcl__52593CB8">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="ticketpedido" Type="Self.ticketpedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="codcli" />
+            </Principal>
+            <Dependent Role="ticketpedido">
+              <PropertyRef Name="codcli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ticketped__codem__5165187F">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="ticketpedido" Type="Self.ticketpedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="codemp" />
+            </Principal>
+            <Dependent Role="ticketpedido">
+              <PropertyRef Name="codemp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_ActualizarCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="int" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="estado" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_ActualizarMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="int" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="estado" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_ActualizarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="int" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="precio" Type="money" Mode="In" />
+          <Parameter Name="cantidad" Type="int" Mode="In" />
+          <Parameter Name="fecha" Type="date" Mode="In" />
+          <Parameter Name="estado" Type="bit" Mode="In" />
+          <Parameter Name="codcat" Type="int" Mode="In" />
+          <Parameter Name="codmar" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_BuscarCategoriaXCodigo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_BuscarMarcaXCodigo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_BuscarProductoXCodigo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_CodigoCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_CodigoMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_CodigoProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_EliminarCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_EliminarMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_EliminarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_HabilitarCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_HabilitarMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_HabilitarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_MostrarCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_MostrarCategoriaTodo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_MostrarMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_MostrarMarcaTodo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_MostrarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_MostrarProductoTodo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_RegistrarCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="estado" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_RegistrarMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="estado" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SP_RegistrarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="precio" Type="money" Mode="In" />
+          <Parameter Name="cantidad" Type="int" Mode="In" />
+          <Parameter Name="fecha" Type="date" Mode="In" />
+          <Parameter Name="estado" Type="bit" Mode="In" />
+          <Parameter Name="codcat" Type="int" Mode="In" />
+          <Parameter Name="codmar" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="bdciberelectrik2026ModelStoreContainer">
+          <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalleticketpedido" EntityType="Self.detalleticketpedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="distrito" EntityType="Self.distrito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="marca" EntityType="Self.marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="producto" EntityType="Self.producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sexo" EntityType="Self.sexo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ticketpedido" EntityType="Self.ticketpedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipodocumento" EntityType="Self.tipodocumento" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__cliente__coddis__4CA06362" Association="Self.FK__cliente__coddis__4CA06362">
+            <End Role="distrito" EntitySet="distrito" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cliente__codsex__4E88ABD4" Association="Self.FK__cliente__codsex__4E88ABD4">
+            <End Role="sexo" EntitySet="sexo" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cliente__codtipd__4D94879B" Association="Self.FK__cliente__codtipd__4D94879B">
+            <End Role="tipodocumento" EntitySet="tipodocumento" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalleti__codpr__5629CD9C" Association="Self.FK__detalleti__codpr__5629CD9C">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="detalleticketpedido" EntitySet="detalleticketpedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalleti__nrope__5535A963" Association="Self.FK__detalleti__nrope__5535A963">
+            <End Role="ticketpedido" EntitySet="ticketpedido" />
+            <End Role="detalleticketpedido" EntitySet="detalleticketpedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__empleado__coddis__46E78A0C" Association="Self.FK__empleado__coddis__46E78A0C">
+            <End Role="distrito" EntitySet="distrito" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__empleado__codrol__47DBAE45" Association="Self.FK__empleado__codrol__47DBAE45">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__empleado__codsex__49C3F6B7" Association="Self.FK__empleado__codsex__49C3F6B7">
+            <End Role="sexo" EntitySet="sexo" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__empleado__codtip__48CFD27E" Association="Self.FK__empleado__codtip__48CFD27E">
+            <End Role="tipodocumento" EntitySet="tipodocumento" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__producto__codcat__4316F928" Association="Self.FK__producto__codcat__4316F928">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__producto__codmar__440B1D61" Association="Self.FK__producto__codmar__440B1D61">
+            <End Role="marca" EntitySet="marca" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ticketped__codcl__52593CB8" Association="Self.FK__ticketped__codcl__52593CB8">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="ticketpedido" EntitySet="ticketpedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ticketped__codem__5165187F" Association="Self.FK__ticketped__codem__5165187F">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="ticketpedido" EntitySet="ticketpedido" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bdciberelectrik2026Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="codcat" />
+          </Key>
+          <Property Name="codcat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomcat" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estcat" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Self.FK__producto__codcat__4316F928" FromRole="categoria" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="codcli" />
+          </Key>
+          <Property Name="codcli" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomcli" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apepcli" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apemcli" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="doccli" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dircli" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telcli" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celcli" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="corcli" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estcli" Type="Boolean" Nullable="false" />
+          <Property Name="coddis" Type="Int32" Nullable="false" />
+          <Property Name="codtipd" Type="Int32" Nullable="false" />
+          <Property Name="codsex" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="distrito" Relationship="Self.FK__cliente__coddis__4CA06362" FromRole="cliente" ToRole="distrito" />
+          <NavigationProperty Name="sexo" Relationship="Self.FK__cliente__codsex__4E88ABD4" FromRole="cliente" ToRole="sexo" />
+          <NavigationProperty Name="tipodocumento" Relationship="Self.FK__cliente__codtipd__4D94879B" FromRole="cliente" ToRole="tipodocumento" />
+          <NavigationProperty Name="ticketpedido" Relationship="Self.FK__ticketped__codcl__52593CB8" FromRole="cliente" ToRole="ticketpedido" />
+        </EntityType>
+        <EntityType Name="detalleticketpedido">
+          <Key>
+            <PropertyRef Name="nrodet" />
+          </Key>
+          <Property Name="nrodet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="canent" Type="Int32" Nullable="false" />
+          <Property Name="preent" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="nroped" Type="Int32" Nullable="false" />
+          <Property Name="codpro" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Self.FK__detalleti__codpr__5629CD9C" FromRole="detalleticketpedido" ToRole="producto" />
+          <NavigationProperty Name="ticketpedido" Relationship="Self.FK__detalleti__nrope__5535A963" FromRole="detalleticketpedido" ToRole="ticketpedido" />
+        </EntityType>
+        <EntityType Name="distrito">
+          <Key>
+            <PropertyRef Name="coddis" />
+          </Key>
+          <Property Name="coddis" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomdis" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estdis" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK__cliente__coddis__4CA06362" FromRole="distrito" ToRole="cliente" />
+          <NavigationProperty Name="empleado" Relationship="Self.FK__empleado__coddis__46E78A0C" FromRole="distrito" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="codemp" />
+          </Key>
+          <Property Name="codemp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomemp" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apepemp" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apememp" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="docemp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="diremp" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telemp" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celemp" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coremp" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuemp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="claemp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estemp" Type="Boolean" Nullable="false" />
+          <Property Name="coddis" Type="Int32" Nullable="false" />
+          <Property Name="codrol" Type="Int32" Nullable="false" />
+          <Property Name="codtipd" Type="Int32" Nullable="false" />
+          <Property Name="codsex" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="distrito" Relationship="Self.FK__empleado__coddis__46E78A0C" FromRole="empleado" ToRole="distrito" />
+          <NavigationProperty Name="rol" Relationship="Self.FK__empleado__codrol__47DBAE45" FromRole="empleado" ToRole="rol" />
+          <NavigationProperty Name="sexo" Relationship="Self.FK__empleado__codsex__49C3F6B7" FromRole="empleado" ToRole="sexo" />
+          <NavigationProperty Name="tipodocumento" Relationship="Self.FK__empleado__codtip__48CFD27E" FromRole="empleado" ToRole="tipodocumento" />
+          <NavigationProperty Name="ticketpedido" Relationship="Self.FK__ticketped__codem__5165187F" FromRole="empleado" ToRole="ticketpedido" />
+        </EntityType>
+        <EntityType Name="marca">
+          <Key>
+            <PropertyRef Name="codmar" />
+          </Key>
+          <Property Name="codmar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nommar" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estmar" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="producto" Relationship="Self.FK__producto__codmar__440B1D61" FromRole="marca" ToRole="producto" />
+        </EntityType>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="codpro" />
+          </Key>
+          <Property Name="codpro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nompro" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="despro" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prepro" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="canpro" Type="Int32" Nullable="false" />
+          <Property Name="fecing" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="estpro" Type="Boolean" Nullable="false" />
+          <Property Name="codcat" Type="Int32" Nullable="false" />
+          <Property Name="codmar" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="categoria" Relationship="Self.FK__producto__codcat__4316F928" FromRole="producto" ToRole="categoria" />
+          <NavigationProperty Name="detalleticketpedido" Relationship="Self.FK__detalleti__codpr__5629CD9C" FromRole="producto" ToRole="detalleticketpedido" />
+          <NavigationProperty Name="marca" Relationship="Self.FK__producto__codmar__440B1D61" FromRole="producto" ToRole="marca" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="codrol" />
+          </Key>
+          <Property Name="codrol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomrol" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estrol" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="empleado" Relationship="Self.FK__empleado__codrol__47DBAE45" FromRole="rol" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="sexo">
+          <Key>
+            <PropertyRef Name="codsex" />
+          </Key>
+          <Property Name="codsex" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomsex" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estsex" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK__cliente__codsex__4E88ABD4" FromRole="sexo" ToRole="cliente" />
+          <NavigationProperty Name="empleado" Relationship="Self.FK__empleado__codsex__49C3F6B7" FromRole="sexo" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="ticketpedido">
+          <Key>
+            <PropertyRef Name="nroped" />
+          </Key>
+          <Property Name="nroped" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecped" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="codemp" Type="Int32" Nullable="false" />
+          <Property Name="codcli" Type="Int32" Nullable="false" />
+          <Property Name="estped" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK__ticketped__codcl__52593CB8" FromRole="ticketpedido" ToRole="cliente" />
+          <NavigationProperty Name="detalleticketpedido" Relationship="Self.FK__detalleti__nrope__5535A963" FromRole="ticketpedido" ToRole="detalleticketpedido" />
+          <NavigationProperty Name="empleado" Relationship="Self.FK__ticketped__codem__5165187F" FromRole="ticketpedido" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="tipodocumento">
+          <Key>
+            <PropertyRef Name="codtipd" />
+          </Key>
+          <Property Name="codtipd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomtipd" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="esttipd" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="Self.FK__cliente__codtipd__4D94879B" FromRole="tipodocumento" ToRole="cliente" />
+          <NavigationProperty Name="empleado" Relationship="Self.FK__empleado__codtip__48CFD27E" FromRole="tipodocumento" ToRole="empleado" />
+        </EntityType>
+        <Association Name="FK__producto__codcat__4316F928">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="codcat" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="codcat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cliente__coddis__4CA06362">
+          <End Role="distrito" Type="Self.distrito" Multiplicity="1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="distrito">
+              <PropertyRef Name="coddis" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="coddis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cliente__codsex__4E88ABD4">
+          <End Role="sexo" Type="Self.sexo" Multiplicity="1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sexo">
+              <PropertyRef Name="codsex" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="codsex" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cliente__codtipd__4D94879B">
+          <End Role="tipodocumento" Type="Self.tipodocumento" Multiplicity="1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipodocumento">
+              <PropertyRef Name="codtipd" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="codtipd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ticketped__codcl__52593CB8">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="ticketpedido" Type="Self.ticketpedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="codcli" />
+            </Principal>
+            <Dependent Role="ticketpedido">
+              <PropertyRef Name="codcli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalleti__codpr__5629CD9C">
+          <End Role="producto" Type="Self.producto" Multiplicity="1" />
+          <End Role="detalleticketpedido" Type="Self.detalleticketpedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="codpro" />
+            </Principal>
+            <Dependent Role="detalleticketpedido">
+              <PropertyRef Name="codpro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__detalleti__nrope__5535A963">
+          <End Role="ticketpedido" Type="Self.ticketpedido" Multiplicity="1" />
+          <End Role="detalleticketpedido" Type="Self.detalleticketpedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ticketpedido">
+              <PropertyRef Name="nroped" />
+            </Principal>
+            <Dependent Role="detalleticketpedido">
+              <PropertyRef Name="nroped" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__empleado__coddis__46E78A0C">
+          <End Role="distrito" Type="Self.distrito" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="distrito">
+              <PropertyRef Name="coddis" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="coddis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__empleado__codrol__47DBAE45">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="codrol" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="codrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__empleado__codsex__49C3F6B7">
+          <End Role="sexo" Type="Self.sexo" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sexo">
+              <PropertyRef Name="codsex" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="codsex" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__empleado__codtip__48CFD27E">
+          <End Role="tipodocumento" Type="Self.tipodocumento" Multiplicity="1" />
+          <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipodocumento">
+              <PropertyRef Name="codtipd" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="codtipd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ticketped__codem__5165187F">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="ticketpedido" Type="Self.ticketpedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="codemp" />
+            </Principal>
+            <Dependent Role="ticketpedido">
+              <PropertyRef Name="codemp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__producto__codmar__440B1D61">
+          <End Role="marca" Type="Self.marca" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="marca">
+              <PropertyRef Name="codmar" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="codmar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bdciberelectrik2026Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categoria" EntityType="Self.categoria" />
+          <EntitySet Name="cliente" EntityType="Self.cliente" />
+          <EntitySet Name="detalleticketpedido" EntityType="Self.detalleticketpedido" />
+          <EntitySet Name="distrito" EntityType="Self.distrito" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" />
+          <EntitySet Name="marca" EntityType="Self.marca" />
+          <EntitySet Name="producto" EntityType="Self.producto" />
+          <EntitySet Name="rol" EntityType="Self.rol" />
+          <EntitySet Name="sexo" EntityType="Self.sexo" />
+          <EntitySet Name="ticketpedido" EntityType="Self.ticketpedido" />
+          <EntitySet Name="tipodocumento" EntityType="Self.tipodocumento" />
+          <AssociationSet Name="FK__producto__codcat__4316F928" Association="Self.FK__producto__codcat__4316F928">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cliente__coddis__4CA06362" Association="Self.FK__cliente__coddis__4CA06362">
+            <End Role="distrito" EntitySet="distrito" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cliente__codsex__4E88ABD4" Association="Self.FK__cliente__codsex__4E88ABD4">
+            <End Role="sexo" EntitySet="sexo" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cliente__codtipd__4D94879B" Association="Self.FK__cliente__codtipd__4D94879B">
+            <End Role="tipodocumento" EntitySet="tipodocumento" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ticketped__codcl__52593CB8" Association="Self.FK__ticketped__codcl__52593CB8">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="ticketpedido" EntitySet="ticketpedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalleti__codpr__5629CD9C" Association="Self.FK__detalleti__codpr__5629CD9C">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="detalleticketpedido" EntitySet="detalleticketpedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__detalleti__nrope__5535A963" Association="Self.FK__detalleti__nrope__5535A963">
+            <End Role="ticketpedido" EntitySet="ticketpedido" />
+            <End Role="detalleticketpedido" EntitySet="detalleticketpedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__empleado__coddis__46E78A0C" Association="Self.FK__empleado__coddis__46E78A0C">
+            <End Role="distrito" EntitySet="distrito" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__empleado__codrol__47DBAE45" Association="Self.FK__empleado__codrol__47DBAE45">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__empleado__codsex__49C3F6B7" Association="Self.FK__empleado__codsex__49C3F6B7">
+            <End Role="sexo" EntitySet="sexo" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__empleado__codtip__48CFD27E" Association="Self.FK__empleado__codtip__48CFD27E">
+            <End Role="tipodocumento" EntitySet="tipodocumento" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ticketped__codem__5165187F" Association="Self.FK__ticketped__codem__5165187F">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="ticketpedido" EntitySet="ticketpedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__producto__codmar__440B1D61" Association="Self.FK__producto__codmar__440B1D61">
+            <End Role="marca" EntitySet="marca" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <FunctionImport Name="SP_ActualizarCategoria">
+            <Parameter Name="codigo" Mode="In" Type="Int32" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ActualizarMarca">
+            <Parameter Name="codigo" Mode="In" Type="Int32" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ActualizarProducto">
+            <Parameter Name="codigo" Mode="In" Type="Int32" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="descripcion" Mode="In" Type="String" />
+            <Parameter Name="precio" Mode="In" Type="Decimal" />
+            <Parameter Name="cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="estado" Mode="In" Type="Boolean" />
+            <Parameter Name="codcat" Mode="In" Type="Int32" />
+            <Parameter Name="codmar" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_BuscarCategoriaXCodigo" ReturnType="Collection(bdciberelectrik2026Model.SP_BuscarCategoriaXCodigo_Result)">
+            <Parameter Name="codigo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_BuscarMarcaXCodigo" ReturnType="Collection(bdciberelectrik2026Model.SP_BuscarMarcaXCodigo_Result)">
+            <Parameter Name="codigo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_BuscarProductoXCodigo" ReturnType="Collection(bdciberelectrik2026Model.SP_BuscarProductoXCodigo_Result)">
+            <Parameter Name="codigo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_CodigoCategoria" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="SP_CodigoMarca" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="SP_CodigoProducto" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="SP_EliminarCategoria">
+            <Parameter Name="codigo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_EliminarMarca">
+            <Parameter Name="codigo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_EliminarProducto">
+            <Parameter Name="codigo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_HabilitarCategoria">
+            <Parameter Name="codigo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_HabilitarMarca">
+            <Parameter Name="codigo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_HabilitarProducto">
+            <Parameter Name="codigo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MostrarCategoria" ReturnType="Collection(bdciberelectrik2026Model.SP_MostrarCategoria_Result)" />
+          <FunctionImport Name="SP_MostrarCategoriaTodo" ReturnType="Collection(bdciberelectrik2026Model.SP_MostrarCategoriaTodo_Result)" />
+          <FunctionImport Name="SP_MostrarMarca" ReturnType="Collection(bdciberelectrik2026Model.SP_MostrarMarca_Result)" />
+          <FunctionImport Name="SP_MostrarMarcaTodo" ReturnType="Collection(bdciberelectrik2026Model.SP_MostrarMarcaTodo_Result)" />
+          <FunctionImport Name="SP_MostrarProducto" ReturnType="Collection(bdciberelectrik2026Model.SP_MostrarProducto_Result)" />
+          <FunctionImport Name="SP_MostrarProductoTodo" ReturnType="Collection(bdciberelectrik2026Model.SP_MostrarProductoTodo_Result)" />
+          <FunctionImport Name="SP_RegistrarCategoria">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_RegistrarMarca">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SP_RegistrarProducto">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="descripcion" Mode="In" Type="String" />
+            <Parameter Name="precio" Mode="In" Type="Decimal" />
+            <Parameter Name="cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="estado" Mode="In" Type="Boolean" />
+            <Parameter Name="codcat" Mode="In" Type="Int32" />
+            <Parameter Name="codmar" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_BuscarCategoriaXCodigo_Result">
+          <Property Type="Int32" Name="codcat" Nullable="false" />
+          <Property Type="String" Name="nomcat" Nullable="false" MaxLength="30" />
+          <Property Type="Boolean" Name="estcat" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_BuscarMarcaXCodigo_Result">
+          <Property Type="Int32" Name="codmar" Nullable="false" />
+          <Property Type="String" Name="nommar" Nullable="false" MaxLength="40" />
+          <Property Type="Boolean" Name="estmar" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_BuscarProductoXCodigo_Result">
+          <Property Type="Int32" Name="codpro" Nullable="false" />
+          <Property Type="String" Name="nompro" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="despro" Nullable="false" MaxLength="300" />
+          <Property Type="Decimal" Name="prepro" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="canpro" Nullable="false" />
+          <Property Type="DateTime" Name="fecing" Nullable="false" />
+          <Property Type="Boolean" Name="estpro" Nullable="false" />
+          <Property Type="Int32" Name="codcat" Nullable="false" />
+          <Property Type="String" Name="nomcat" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="codmar" Nullable="false" />
+          <Property Type="String" Name="nommar" Nullable="false" MaxLength="40" />
+        </ComplexType>
+        <ComplexType Name="SP_MostrarCategoria_Result">
+          <Property Type="Int32" Name="codcat" Nullable="false" />
+          <Property Type="String" Name="nomcat" Nullable="false" MaxLength="30" />
+          <Property Type="Boolean" Name="estcat" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_MostrarCategoriaTodo_Result">
+          <Property Type="Int32" Name="codcat" Nullable="false" />
+          <Property Type="String" Name="nomcat" Nullable="false" MaxLength="30" />
+          <Property Type="Boolean" Name="estcat" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_MostrarMarca_Result">
+          <Property Type="Int32" Name="codmar" Nullable="false" />
+          <Property Type="String" Name="nommar" Nullable="false" MaxLength="40" />
+          <Property Type="Boolean" Name="estmar" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_MostrarMarcaTodo_Result">
+          <Property Type="Int32" Name="codmar" Nullable="false" />
+          <Property Type="String" Name="nommar" Nullable="false" MaxLength="40" />
+          <Property Type="Boolean" Name="estmar" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_MostrarProducto_Result">
+          <Property Type="Int32" Name="codpro" Nullable="false" />
+          <Property Type="String" Name="nompro" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="despro" Nullable="false" MaxLength="300" />
+          <Property Type="Decimal" Name="prepro" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="canpro" Nullable="false" />
+          <Property Type="DateTime" Name="fecing" Nullable="false" />
+          <Property Type="Boolean" Name="estpro" Nullable="false" />
+          <Property Type="Int32" Name="codcat" Nullable="false" />
+          <Property Type="String" Name="nomcat" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="codmar" Nullable="false" />
+          <Property Type="String" Name="nommar" Nullable="false" MaxLength="40" />
+        </ComplexType>
+        <ComplexType Name="SP_MostrarProductoTodo_Result">
+          <Property Type="Int32" Name="codpro" Nullable="false" />
+          <Property Type="String" Name="nompro" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="despro" Nullable="false" MaxLength="300" />
+          <Property Type="Decimal" Name="prepro" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="canpro" Nullable="false" />
+          <Property Type="DateTime" Name="fecing" Nullable="false" />
+          <Property Type="Boolean" Name="estpro" Nullable="false" />
+          <Property Type="Int32" Name="codcat" Nullable="false" />
+          <Property Type="String" Name="nomcat" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="codmar" Nullable="false" />
+          <Property Type="String" Name="nommar" Nullable="false" MaxLength="40" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bdciberelectrik2026ModelStoreContainer" CdmEntityContainer="bdciberelectrik2026Entities">
+          <EntitySetMapping Name="categoria">
+            <EntityTypeMapping TypeName="bdciberelectrik2026Model.categoria">
+              <MappingFragment StoreEntitySet="categoria">
+                <ScalarProperty Name="codcat" ColumnName="codcat" />
+                <ScalarProperty Name="nomcat" ColumnName="nomcat" />
+                <ScalarProperty Name="estcat" ColumnName="estcat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cliente">
+            <EntityTypeMapping TypeName="bdciberelectrik2026Model.cliente">
+              <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="codcli" ColumnName="codcli" />
+                <ScalarProperty Name="nomcli" ColumnName="nomcli" />
+                <ScalarProperty Name="apepcli" ColumnName="apepcli" />
+                <ScalarProperty Name="apemcli" ColumnName="apemcli" />
+                <ScalarProperty Name="doccli" ColumnName="doccli" />
+                <ScalarProperty Name="dircli" ColumnName="dircli" />
+                <ScalarProperty Name="telcli" ColumnName="telcli" />
+                <ScalarProperty Name="celcli" ColumnName="celcli" />
+                <ScalarProperty Name="corcli" ColumnName="corcli" />
+                <ScalarProperty Name="estcli" ColumnName="estcli" />
+                <ScalarProperty Name="coddis" ColumnName="coddis" />
+                <ScalarProperty Name="codtipd" ColumnName="codtipd" />
+                <ScalarProperty Name="codsex" ColumnName="codsex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalleticketpedido">
+            <EntityTypeMapping TypeName="bdciberelectrik2026Model.detalleticketpedido">
+              <MappingFragment StoreEntitySet="detalleticketpedido">
+                <ScalarProperty Name="nrodet" ColumnName="nrodet" />
+                <ScalarProperty Name="canent" ColumnName="canent" />
+                <ScalarProperty Name="preent" ColumnName="preent" />
+                <ScalarProperty Name="nroped" ColumnName="nroped" />
+                <ScalarProperty Name="codpro" ColumnName="codpro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="distrito">
+            <EntityTypeMapping TypeName="bdciberelectrik2026Model.distrito">
+              <MappingFragment StoreEntitySet="distrito">
+                <ScalarProperty Name="coddis" ColumnName="coddis" />
+                <ScalarProperty Name="nomdis" ColumnName="nomdis" />
+                <ScalarProperty Name="estdis" ColumnName="estdis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empleado">
+            <EntityTypeMapping TypeName="bdciberelectrik2026Model.empleado">
+              <MappingFragment StoreEntitySet="empleado">
+                <ScalarProperty Name="codemp" ColumnName="codemp" />
+                <ScalarProperty Name="nomemp" ColumnName="nomemp" />
+                <ScalarProperty Name="apepemp" ColumnName="apepemp" />
+                <ScalarProperty Name="apememp" ColumnName="apememp" />
+                <ScalarProperty Name="docemp" ColumnName="docemp" />
+                <ScalarProperty Name="diremp" ColumnName="diremp" />
+                <ScalarProperty Name="telemp" ColumnName="telemp" />
+                <ScalarProperty Name="celemp" ColumnName="celemp" />
+                <ScalarProperty Name="coremp" ColumnName="coremp" />
+                <ScalarProperty Name="usuemp" ColumnName="usuemp" />
+                <ScalarProperty Name="claemp" ColumnName="claemp" />
+                <ScalarProperty Name="estemp" ColumnName="estemp" />
+                <ScalarProperty Name="coddis" ColumnName="coddis" />
+                <ScalarProperty Name="codrol" ColumnName="codrol" />
+                <ScalarProperty Name="codtipd" ColumnName="codtipd" />
+                <ScalarProperty Name="codsex" ColumnName="codsex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marca">
+            <EntityTypeMapping TypeName="bdciberelectrik2026Model.marca">
+              <MappingFragment StoreEntitySet="marca">
+                <ScalarProperty Name="codmar" ColumnName="codmar" />
+                <ScalarProperty Name="nommar" ColumnName="nommar" />
+                <ScalarProperty Name="estmar" ColumnName="estmar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="producto">
+            <EntityTypeMapping TypeName="bdciberelectrik2026Model.producto">
+              <MappingFragment StoreEntitySet="producto">
+                <ScalarProperty Name="codpro" ColumnName="codpro" />
+                <ScalarProperty Name="nompro" ColumnName="nompro" />
+                <ScalarProperty Name="despro" ColumnName="despro" />
+                <ScalarProperty Name="prepro" ColumnName="prepro" />
+                <ScalarProperty Name="canpro" ColumnName="canpro" />
+                <ScalarProperty Name="fecing" ColumnName="fecing" />
+                <ScalarProperty Name="estpro" ColumnName="estpro" />
+                <ScalarProperty Name="codcat" ColumnName="codcat" />
+                <ScalarProperty Name="codmar" ColumnName="codmar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rol">
+            <EntityTypeMapping TypeName="bdciberelectrik2026Model.rol">
+              <MappingFragment StoreEntitySet="rol">
+                <ScalarProperty Name="codrol" ColumnName="codrol" />
+                <ScalarProperty Name="nomrol" ColumnName="nomrol" />
+                <ScalarProperty Name="estrol" ColumnName="estrol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sexo">
+            <EntityTypeMapping TypeName="bdciberelectrik2026Model.sexo">
+              <MappingFragment StoreEntitySet="sexo">
+                <ScalarProperty Name="codsex" ColumnName="codsex" />
+                <ScalarProperty Name="nomsex" ColumnName="nomsex" />
+                <ScalarProperty Name="estsex" ColumnName="estsex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ticketpedido">
+            <EntityTypeMapping TypeName="bdciberelectrik2026Model.ticketpedido">
+              <MappingFragment StoreEntitySet="ticketpedido">
+                <ScalarProperty Name="nroped" ColumnName="nroped" />
+                <ScalarProperty Name="fecped" ColumnName="fecped" />
+                <ScalarProperty Name="codemp" ColumnName="codemp" />
+                <ScalarProperty Name="codcli" ColumnName="codcli" />
+                <ScalarProperty Name="estped" ColumnName="estped" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tipodocumento">
+            <EntityTypeMapping TypeName="bdciberelectrik2026Model.tipodocumento">
+              <MappingFragment StoreEntitySet="tipodocumento">
+                <ScalarProperty Name="codtipd" ColumnName="codtipd" />
+                <ScalarProperty Name="nomtipd" ColumnName="nomtipd" />
+                <ScalarProperty Name="esttipd" ColumnName="esttipd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_ActualizarCategoria" FunctionName="bdciberelectrik2026Model.Store.SP_ActualizarCategoria" />
+          <FunctionImportMapping FunctionImportName="SP_ActualizarMarca" FunctionName="bdciberelectrik2026Model.Store.SP_ActualizarMarca" />
+          <FunctionImportMapping FunctionImportName="SP_ActualizarProducto" FunctionName="bdciberelectrik2026Model.Store.SP_ActualizarProducto" />
+          <FunctionImportMapping FunctionImportName="SP_BuscarCategoriaXCodigo" FunctionName="bdciberelectrik2026Model.Store.SP_BuscarCategoriaXCodigo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bdciberelectrik2026Model.SP_BuscarCategoriaXCodigo_Result">
+                <ScalarProperty Name="codcat" ColumnName="codcat" />
+                <ScalarProperty Name="nomcat" ColumnName="nomcat" />
+                <ScalarProperty Name="estcat" ColumnName="estcat" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_BuscarMarcaXCodigo" FunctionName="bdciberelectrik2026Model.Store.SP_BuscarMarcaXCodigo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bdciberelectrik2026Model.SP_BuscarMarcaXCodigo_Result">
+                <ScalarProperty Name="codmar" ColumnName="codmar" />
+                <ScalarProperty Name="nommar" ColumnName="nommar" />
+                <ScalarProperty Name="estmar" ColumnName="estmar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_BuscarProductoXCodigo" FunctionName="bdciberelectrik2026Model.Store.SP_BuscarProductoXCodigo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bdciberelectrik2026Model.SP_BuscarProductoXCodigo_Result">
+                <ScalarProperty Name="codpro" ColumnName="codpro" />
+                <ScalarProperty Name="nompro" ColumnName="nompro" />
+                <ScalarProperty Name="despro" ColumnName="despro" />
+                <ScalarProperty Name="prepro" ColumnName="prepro" />
+                <ScalarProperty Name="canpro" ColumnName="canpro" />
+                <ScalarProperty Name="fecing" ColumnName="fecing" />
+                <ScalarProperty Name="estpro" ColumnName="estpro" />
+                <ScalarProperty Name="codcat" ColumnName="codcat" />
+                <ScalarProperty Name="nomcat" ColumnName="nomcat" />
+                <ScalarProperty Name="codmar" ColumnName="codmar" />
+                <ScalarProperty Name="nommar" ColumnName="nommar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_CodigoCategoria" FunctionName="bdciberelectrik2026Model.Store.SP_CodigoCategoria" />
+          <FunctionImportMapping FunctionImportName="SP_CodigoMarca" FunctionName="bdciberelectrik2026Model.Store.SP_CodigoMarca" />
+          <FunctionImportMapping FunctionImportName="SP_CodigoProducto" FunctionName="bdciberelectrik2026Model.Store.SP_CodigoProducto" />
+          <FunctionImportMapping FunctionImportName="SP_EliminarCategoria" FunctionName="bdciberelectrik2026Model.Store.SP_EliminarCategoria" />
+          <FunctionImportMapping FunctionImportName="SP_EliminarMarca" FunctionName="bdciberelectrik2026Model.Store.SP_EliminarMarca" />
+          <FunctionImportMapping FunctionImportName="SP_EliminarProducto" FunctionName="bdciberelectrik2026Model.Store.SP_EliminarProducto" />
+          <FunctionImportMapping FunctionImportName="SP_HabilitarCategoria" FunctionName="bdciberelectrik2026Model.Store.SP_HabilitarCategoria" />
+          <FunctionImportMapping FunctionImportName="SP_HabilitarMarca" FunctionName="bdciberelectrik2026Model.Store.SP_HabilitarMarca" />
+          <FunctionImportMapping FunctionImportName="SP_HabilitarProducto" FunctionName="bdciberelectrik2026Model.Store.SP_HabilitarProducto" />
+          <FunctionImportMapping FunctionImportName="SP_MostrarCategoria" FunctionName="bdciberelectrik2026Model.Store.SP_MostrarCategoria">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bdciberelectrik2026Model.SP_MostrarCategoria_Result">
+                <ScalarProperty Name="codcat" ColumnName="codcat" />
+                <ScalarProperty Name="nomcat" ColumnName="nomcat" />
+                <ScalarProperty Name="estcat" ColumnName="estcat" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_MostrarCategoriaTodo" FunctionName="bdciberelectrik2026Model.Store.SP_MostrarCategoriaTodo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bdciberelectrik2026Model.SP_MostrarCategoriaTodo_Result">
+                <ScalarProperty Name="codcat" ColumnName="codcat" />
+                <ScalarProperty Name="nomcat" ColumnName="nomcat" />
+                <ScalarProperty Name="estcat" ColumnName="estcat" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_MostrarMarca" FunctionName="bdciberelectrik2026Model.Store.SP_MostrarMarca">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bdciberelectrik2026Model.SP_MostrarMarca_Result">
+                <ScalarProperty Name="codmar" ColumnName="codmar" />
+                <ScalarProperty Name="nommar" ColumnName="nommar" />
+                <ScalarProperty Name="estmar" ColumnName="estmar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_MostrarMarcaTodo" FunctionName="bdciberelectrik2026Model.Store.SP_MostrarMarcaTodo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bdciberelectrik2026Model.SP_MostrarMarcaTodo_Result">
+                <ScalarProperty Name="codmar" ColumnName="codmar" />
+                <ScalarProperty Name="nommar" ColumnName="nommar" />
+                <ScalarProperty Name="estmar" ColumnName="estmar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_MostrarProducto" FunctionName="bdciberelectrik2026Model.Store.SP_MostrarProducto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bdciberelectrik2026Model.SP_MostrarProducto_Result">
+                <ScalarProperty Name="codpro" ColumnName="codpro" />
+                <ScalarProperty Name="nompro" ColumnName="nompro" />
+                <ScalarProperty Name="despro" ColumnName="despro" />
+                <ScalarProperty Name="prepro" ColumnName="prepro" />
+                <ScalarProperty Name="canpro" ColumnName="canpro" />
+                <ScalarProperty Name="fecing" ColumnName="fecing" />
+                <ScalarProperty Name="estpro" ColumnName="estpro" />
+                <ScalarProperty Name="codcat" ColumnName="codcat" />
+                <ScalarProperty Name="nomcat" ColumnName="nomcat" />
+                <ScalarProperty Name="codmar" ColumnName="codmar" />
+                <ScalarProperty Name="nommar" ColumnName="nommar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_MostrarProductoTodo" FunctionName="bdciberelectrik2026Model.Store.SP_MostrarProductoTodo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="bdciberelectrik2026Model.SP_MostrarProductoTodo_Result">
+                <ScalarProperty Name="codpro" ColumnName="codpro" />
+                <ScalarProperty Name="nompro" ColumnName="nompro" />
+                <ScalarProperty Name="despro" ColumnName="despro" />
+                <ScalarProperty Name="prepro" ColumnName="prepro" />
+                <ScalarProperty Name="canpro" ColumnName="canpro" />
+                <ScalarProperty Name="fecing" ColumnName="fecing" />
+                <ScalarProperty Name="estpro" ColumnName="estpro" />
+                <ScalarProperty Name="codcat" ColumnName="codcat" />
+                <ScalarProperty Name="nomcat" ColumnName="nomcat" />
+                <ScalarProperty Name="codmar" ColumnName="codmar" />
+                <ScalarProperty Name="nommar" ColumnName="nommar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_RegistrarCategoria" FunctionName="bdciberelectrik2026Model.Store.SP_RegistrarCategoria" />
+          <FunctionImportMapping FunctionImportName="SP_RegistrarMarca" FunctionName="bdciberelectrik2026Model.Store.SP_RegistrarMarca" />
+          <FunctionImportMapping FunctionImportName="SP_RegistrarProducto" FunctionName="bdciberelectrik2026Model.Store.SP_RegistrarProducto" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

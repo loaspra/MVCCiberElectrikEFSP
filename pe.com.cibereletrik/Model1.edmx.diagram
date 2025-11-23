@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d31522022ecc4e26ad226d8e3d923309" Name="Diagram1">
+        <EntityTypeShape EntityType="bdciberelectrik2026Model.categoria" Width="1.5" PointX="6" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdciberelectrik2026Model.cliente" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdciberelectrik2026Model.detalleticketpedido" Width="1.5" PointX="10.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdciberelectrik2026Model.distrito" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdciberelectrik2026Model.empleado" Width="1.5" PointX="6" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdciberelectrik2026Model.marca" Width="1.5" PointX="6" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdciberelectrik2026Model.producto" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdciberelectrik2026Model.rol" Width="1.5" PointX="3.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdciberelectrik2026Model.sexo" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdciberelectrik2026Model.ticketpedido" Width="1.5" PointX="8.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdciberelectrik2026Model.tipodocumento" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__producto__codcat__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__cliente__coddis__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__cliente__codsex__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__cliente__codtipd__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__ticketped__codcl__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__detalleti__codpr__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__detalleti__nrope__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__empleado__coddis__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__empleado__codrol__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__empleado__codsex__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__empleado__codtip__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__ticketped__codem__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="bdciberelectrik2026Model.FK__producto__codmar__440B1D61" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

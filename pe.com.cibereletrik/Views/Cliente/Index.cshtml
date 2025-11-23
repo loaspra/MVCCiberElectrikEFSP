@@ -1,0 +1,100 @@
+﻿@model IEnumerable<pe.com.cibereletrik.cliente>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nomcli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apepcli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apemcli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.doccli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dircli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.telcli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.celcli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.corcli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estcli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.distrito.nomdis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sexo.nomsex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipodocumento.nomtipd)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomcli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apepcli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apemcli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.doccli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dircli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telcli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.celcli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.corcli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estcli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.distrito.nomdis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sexo.nomsex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipodocumento.nomtipd)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.codcli }) |
+            @Html.ActionLink("Details", "Details", new { id=item.codcli }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.codcli })
+        </td>
+    </tr>
+}
+
+</table>

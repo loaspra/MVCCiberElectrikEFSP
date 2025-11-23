@@ -1,0 +1,76 @@
+﻿@model IEnumerable<pe.com.cibereletrik.producto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nompro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.despro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prepro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.canpro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estpro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.categoria.nomcat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.marca.nommar)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nompro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.despro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prepro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.canpro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estpro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.categoria.nomcat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.marca.nommar)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.codpro }) |
+            @Html.ActionLink("Details", "Details", new { id=item.codpro }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.codpro })
+        </td>
+    </tr>
+}
+
+</table>

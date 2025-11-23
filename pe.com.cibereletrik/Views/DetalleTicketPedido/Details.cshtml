@@ -1,0 +1,51 @@
+﻿@model pe.com.cibereletrik.detalleticketpedido
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>detalleticketpedido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.canent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.canent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.preent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.preent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.producto.nompro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.producto.nompro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ticketpedido.nroped)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ticketpedido.nroped)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.nrodet }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

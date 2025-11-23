@@ -1,0 +1,35 @@
+﻿@model pe.com.cibereletrik.sexo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>sexo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nomsex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nomsex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estsex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estsex)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.codsex }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

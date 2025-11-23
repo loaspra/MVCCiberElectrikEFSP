@@ -1,0 +1,118 @@
+﻿@model IEnumerable<pe.com.cibereletrik.empleado>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nomemp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apepemp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apememp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.docemp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diremp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.telemp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.celemp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.coremp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuemp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.claemp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estemp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.distrito.nomdis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rol.nomrol)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sexo.nomsex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipodocumento.nomtipd)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomemp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apepemp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apememp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.docemp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.diremp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telemp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.celemp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.coremp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuemp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.claemp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estemp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.distrito.nomdis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rol.nomrol)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sexo.nomsex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipodocumento.nomtipd)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.codemp }) |
+            @Html.ActionLink("Details", "Details", new { id=item.codemp }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.codemp })
+        </td>
+    </tr>
+}
+
+</table>
