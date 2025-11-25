@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,7 +18,8 @@ namespace pe.com.cibereletrik.Controllers
         // GET: TipoDocumento
         public ActionResult Index()
         {
-            return View(db.tipodocumento.ToList());
+            var lista = db.Database.SqlQuery<SP_MostrarTipoDocumentoTodo_Result>("SP_MostrarTipoDocumentoTodo").ToList();
+            return View(lista);
         }
 
         // GET: TipoDocumento/Details/5
@@ -27,7 +29,8 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tipodocumento tipodocumento = db.tipodocumento.Find(id);
+            var codigo = new SqlParameter("@codigo", id);
+            tipodocumento tipodocumento = db.Database.SqlQuery<tipodocumento>("SP_BuscarTipoDocumentoXCodigo @codigo", codigo).FirstOrDefault();
             if (tipodocumento == null)
             {
                 return HttpNotFound();
@@ -50,8 +53,9 @@ namespace pe.com.cibereletrik.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.tipodocumento.Add(tipodocumento);
-                db.SaveChanges();
+                var nombre = new SqlParameter("@nombre", tipodocumento.nomtipd);
+                var estado = new SqlParameter("@estado", tipodocumento.esttipd);
+                db.Database.ExecuteSqlCommand("SP_RegistrarTipoDocumento @nombre, @estado", nombre, estado);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +69,8 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tipodocumento tipodocumento = db.tipodocumento.Find(id);
+            var codigo = new SqlParameter("@codigo", id);
+            tipodocumento tipodocumento = db.Database.SqlQuery<tipodocumento>("SP_BuscarTipoDocumentoXCodigo @codigo", codigo).FirstOrDefault();
             if (tipodocumento == null)
             {
                 return HttpNotFound();
@@ -82,8 +87,10 @@ namespace pe.com.cibereletrik.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tipodocumento).State = EntityState.Modified;
-                db.SaveChanges();
+                var codigo = new SqlParameter("@codigo", tipodocumento.codtipd);
+                var nombre = new SqlParameter("@nombre", tipodocumento.nomtipd);
+                var estado = new SqlParameter("@estado", tipodocumento.esttipd);
+                db.Database.ExecuteSqlCommand("SP_ActualizarTipoDocumento @codigo, @nombre, @estado", codigo, nombre, estado);
                 return RedirectToAction("Index");
             }
             return View(tipodocumento);
@@ -96,7 +103,8 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tipodocumento tipodocumento = db.tipodocumento.Find(id);
+            var codigo = new SqlParameter("@codigo", id);
+            tipodocumento tipodocumento = db.Database.SqlQuery<tipodocumento>("SP_BuscarTipoDocumentoXCodigo @codigo", codigo).FirstOrDefault();
             if (tipodocumento == null)
             {
                 return HttpNotFound();
@@ -109,9 +117,34 @@ namespace pe.com.cibereletrik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tipodocumento tipodocumento = db.tipodocumento.Find(id);
-            db.tipodocumento.Remove(tipodocumento);
-            db.SaveChanges();
+            var codigo = new SqlParameter("@codigo", id);
+            db.Database.ExecuteSqlCommand("SP_EliminarTipoDocumento @codigo", codigo);
+            return RedirectToAction("Index");
+        }
+
+        // GET: TipoDocumento/Enable/5
+        public ActionResult Enable(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var codigo = new SqlParameter("@codigo", id);
+            tipodocumento tipodocumento = db.Database.SqlQuery<tipodocumento>("SP_BuscarTipoDocumentoXCodigo @codigo", codigo).FirstOrDefault();
+            if (tipodocumento == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tipodocumento);
+        }
+
+        // POST: TipoDocumento/Enable/5
+        [HttpPost, ActionName("Enable")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnableConfirmed(int id)
+        {
+            var codigo = new SqlParameter("@codigo", id);
+            db.Database.ExecuteSqlCommand("SP_HabilitarTipoDocumento @codigo", codigo);
             return RedirectToAction("Index");
         }
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<pe.com.cibereletrik.cliente>
+﻿@model IEnumerable<pe.com.ciberelectrik.SP_MostrarClienteTodo_Result>
 
 @{
     ViewBag.Title = "Index";
@@ -40,61 +40,63 @@
             @Html.DisplayNameFor(model => model.estcli)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.distrito.nomdis)
+            @Html.DisplayNameFor(model => model.nomdis)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sexo.nomsex)
+            @Html.DisplayNameFor(model => model.nomsex)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tipodocumento.nomtipd)
+            @Html.DisplayNameFor(model => model.nomtipd)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nomcli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.apepcli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.apemcli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.doccli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dircli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.telcli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.celcli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.corcli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estcli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.distrito.nomdis)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sexo.nomsex)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tipodocumento.nomtipd)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.codcli }) |
-            @Html.ActionLink("Details", "Details", new { id=item.codcli }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.codcli })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomcli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.apepcli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.apemcli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.doccli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dircli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telcli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.celcli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.corcli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estcli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomdis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomsex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomtipd)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.codcli }) |
+                @Html.ActionLink("Details", "Details", new { id = item.codcli }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.codcli }) |
+                @Html.ActionLink("Enable", "Enable", new { id = item.codcli })
+            </td>
+        </tr>
+    }
 
 </table>

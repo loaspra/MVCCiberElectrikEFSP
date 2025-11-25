@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,7 +18,8 @@ namespace pe.com.cibereletrik.Controllers
         // GET: Rol
         public ActionResult Index()
         {
-            return View(db.rol.ToList());
+            var lista = db.Database.SqlQuery<SP_MostrarRolTodo_Result>("SP_MostrarRolTodo").ToList();
+            return View(lista);
         }
 
         // GET: Rol/Details/5
@@ -27,7 +29,8 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            rol rol = db.rol.Find(id);
+            var codigo = new SqlParameter("@codigo", id);
+            rol rol = db.Database.SqlQuery<rol>("SP_BuscarRolXCodigo @codigo", codigo).FirstOrDefault();
             if (rol == null)
             {
                 return HttpNotFound();
@@ -50,8 +53,9 @@ namespace pe.com.cibereletrik.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.rol.Add(rol);
-                db.SaveChanges();
+                var nombre = new SqlParameter("@nombre", rol.nomrol);
+                var estado = new SqlParameter("@estado", rol.estrol);
+                db.Database.ExecuteSqlCommand("SP_RegistrarRol @nombre, @estado", nombre, estado);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +69,8 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            rol rol = db.rol.Find(id);
+            var codigo = new SqlParameter("@codigo", id);
+            rol rol = db.Database.SqlQuery<rol>("SP_BuscarRolXCodigo @codigo", codigo).FirstOrDefault();
             if (rol == null)
             {
                 return HttpNotFound();
@@ -82,8 +87,10 @@ namespace pe.com.cibereletrik.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(rol).State = EntityState.Modified;
-                db.SaveChanges();
+                var codigo = new SqlParameter("@codigo", rol.codrol);
+                var nombre = new SqlParameter("@nombre", rol.nomrol);
+                var estado = new SqlParameter("@estado", rol.estrol);
+                db.Database.ExecuteSqlCommand("SP_ActualizarRol @codigo, @nombre, @estado", codigo, nombre, estado);
                 return RedirectToAction("Index");
             }
             return View(rol);
@@ -96,7 +103,8 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            rol rol = db.rol.Find(id);
+            var codigo = new SqlParameter("@codigo", id);
+            rol rol = db.Database.SqlQuery<rol>("SP_BuscarRolXCodigo @codigo", codigo).FirstOrDefault();
             if (rol == null)
             {
                 return HttpNotFound();
@@ -109,9 +117,34 @@ namespace pe.com.cibereletrik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            rol rol = db.rol.Find(id);
-            db.rol.Remove(rol);
-            db.SaveChanges();
+            var codigo = new SqlParameter("@codigo", id);
+            db.Database.ExecuteSqlCommand("SP_EliminarRol @codigo", codigo);
+            return RedirectToAction("Index");
+        }
+
+        // GET: Rol/Enable/5
+        public ActionResult Enable(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var codigo = new SqlParameter("@codigo", id);
+            rol rol = db.Database.SqlQuery<rol>("SP_BuscarRolXCodigo @codigo", codigo).FirstOrDefault();
+            if (rol == null)
+            {
+                return HttpNotFound();
+            }
+            return View(rol);
+        }
+
+        // POST: Rol/Enable/5
+        [HttpPost, ActionName("Enable")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnableConfirmed(int id)
+        {
+            var codigo = new SqlParameter("@codigo", id);
+            db.Database.ExecuteSqlCommand("SP_HabilitarRol @codigo", codigo);
             return RedirectToAction("Index");
         }
 

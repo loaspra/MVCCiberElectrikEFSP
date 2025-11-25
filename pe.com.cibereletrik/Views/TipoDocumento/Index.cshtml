@@ -1,4 +1,4 @@
-﻿@model IEnumerable<pe.com.cibereletrik.tipodocumento>
+﻿@model IEnumerable<pe.com.ciberelectrik.SP_MostrarTipoDocumentoTodo_Result>
 
 @{
     ViewBag.Title = "Index";
@@ -32,7 +32,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.codtipd }) |
             @Html.ActionLink("Details", "Details", new { id=item.codtipd }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.codtipd })
+            @Html.ActionLink("Delete", "Delete", new { id=item.codtipd }) |
+            @Html.ActionLink("Enable", "Enable", new { id=item.codtipd })
         </td>
     </tr>
 }

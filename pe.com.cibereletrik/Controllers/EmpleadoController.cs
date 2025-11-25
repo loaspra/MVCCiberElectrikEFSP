@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,8 +18,8 @@ namespace pe.com.cibereletrik.Controllers
         // GET: Empleado
         public ActionResult Index()
         {
-            var empleado = db.empleado.Include(e => e.distrito).Include(e => e.rol).Include(e => e.sexo).Include(e => e.tipodocumento);
-            return View(empleado.ToList());
+            var lista = db.SP_MostrarEmpleadoTodo().ToList();
+            return View(lista);
         }
 
         // GET: Empleado/Details/5
@@ -28,7 +29,9 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            empleado empleado = db.empleado.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var empleado = db.Database.SqlQuery<empleado>
+                ("SP_BuscarEmpleadoXCodigo @codigo", pid).FirstOrDefault();
             if (empleado == null)
             {
                 return HttpNotFound();
@@ -39,31 +42,71 @@ namespace pe.com.cibereletrik.Controllers
         // GET: Empleado/Create
         public ActionResult Create()
         {
-            ViewBag.coddis = new SelectList(db.distrito, "coddis", "nomdis");
-            ViewBag.codrol = new SelectList(db.rol, "codrol", "nomrol");
-            ViewBag.codsex = new SelectList(db.sexo, "codsex", "nomsex");
-            ViewBag.codtipd = new SelectList(db.tipodocumento, "codtipd", "nomtipd");
+            ViewBag.coddis = new SelectList(
+                db.Database.SqlQuery<distrito>("SP_MostrarDistrito").ToList(),
+                "coddis", "nomdis"
+                );
+            ViewBag.codrol = new SelectList(
+                db.Database.SqlQuery<rol>("SP_MostrarRol").ToList(),
+                "codrol", "nomrol"
+                );
+            ViewBag.codsex = new SelectList(
+                db.Database.SqlQuery<sexo>("SP_MostrarSexo").ToList(),
+                "codsex", "nomsex"
+                );
+            ViewBag.codtipd = new SelectList(
+                db.Database.SqlQuery<tipodocumento>("SP_MostrarTipoDocumento").ToList(),
+                "codtipd", "nomtipd"
+                );
             return View();
         }
 
         // POST: Empleado/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "codemp,nomemp,apepemp,apememp,docemp,diremp,telemp,celemp,coremp,usuemp,claemp,estemp,coddis,codrol,codtipd,codsex")] empleado empleado)
         {
             if (ModelState.IsValid)
             {
-                db.empleado.Add(empleado);
-                db.SaveChanges();
+                db.Database.ExecuteSqlCommand(
+                    "SP_RegistrarEmpleado @p0,@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14",
+                    empleado.nomemp,
+                    empleado.apepemp,
+                    empleado.apememp,
+                    empleado.docemp,
+                    empleado.diremp,
+                    empleado.telemp,
+                    empleado.celemp,
+                    empleado.coremp,
+                    empleado.usuemp,
+                    empleado.claemp,
+                    empleado.estemp,
+                    empleado.coddis,
+                    empleado.codrol,
+                    empleado.codtipd,
+                    empleado.codsex
+                    );
                 return RedirectToAction("Index");
             }
 
-            ViewBag.coddis = new SelectList(db.distrito, "coddis", "nomdis", empleado.coddis);
-            ViewBag.codrol = new SelectList(db.rol, "codrol", "nomrol", empleado.codrol);
-            ViewBag.codsex = new SelectList(db.sexo, "codsex", "nomsex", empleado.codsex);
-            ViewBag.codtipd = new SelectList(db.tipodocumento, "codtipd", "nomtipd", empleado.codtipd);
+            ViewBag.coddis = new SelectList(
+                db.Database.SqlQuery<distrito>("SP_MostrarDistrito").ToList(),
+                "coddis", "nomdis"
+                );
+            ViewBag.codrol = new SelectList(
+                db.Database.SqlQuery<rol>("SP_MostrarRol").ToList(),
+                "codrol", "nomrol"
+                );
+            ViewBag.codsex = new SelectList(
+                db.Database.SqlQuery<sexo>("SP_MostrarSexo").ToList(),
+                "codsex", "nomsex"
+                );
+            ViewBag.codtipd = new SelectList(
+                db.Database.SqlQuery<tipodocumento>("SP_MostrarTipoDocumento").ToList(),
+                "codtipd", "nomtipd"
+                );
             return View(empleado);
         }
 
@@ -74,35 +117,78 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            empleado empleado = db.empleado.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var empleado = db.Database.SqlQuery<empleado>
+                ("SP_BuscarEmpleadoXCodigo @codigo", pid).FirstOrDefault();
             if (empleado == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.coddis = new SelectList(db.distrito, "coddis", "nomdis", empleado.coddis);
-            ViewBag.codrol = new SelectList(db.rol, "codrol", "nomrol", empleado.codrol);
-            ViewBag.codsex = new SelectList(db.sexo, "codsex", "nomsex", empleado.codsex);
-            ViewBag.codtipd = new SelectList(db.tipodocumento, "codtipd", "nomtipd", empleado.codtipd);
+            ViewBag.coddis = new SelectList(
+                db.Database.SqlQuery<distrito>("SP_MostrarDistrito").ToList(),
+                "coddis", "nomdis"
+                );
+            ViewBag.codrol = new SelectList(
+                db.Database.SqlQuery<rol>("SP_MostrarRol").ToList(),
+                "codrol", "nomrol"
+                );
+            ViewBag.codsex = new SelectList(
+                db.Database.SqlQuery<sexo>("SP_MostrarSexo").ToList(),
+                "codsex", "nomsex"
+                );
+            ViewBag.codtipd = new SelectList(
+                db.Database.SqlQuery<tipodocumento>("SP_MostrarTipoDocumento").ToList(),
+                "codtipd", "nomtipd"
+                );
             return View(empleado);
         }
 
         // POST: Empleado/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "codemp,nomemp,apepemp,apememp,docemp,diremp,telemp,celemp,coremp,usuemp,claemp,estemp,coddis,codrol,codtipd,codsex")] empleado empleado)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(empleado).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Database.ExecuteSqlCommand(
+                    "SP_ActualizarEmpleado @p0,@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14,@p15",
+                    empleado.codemp,
+                    empleado.nomemp,
+                    empleado.apepemp,
+                    empleado.apememp,
+                    empleado.docemp,
+                    empleado.diremp,
+                    empleado.telemp,
+                    empleado.celemp,
+                    empleado.coremp,
+                    empleado.usuemp,
+                    empleado.claemp,
+                    empleado.estemp,
+                    empleado.coddis,
+                    empleado.codrol,
+                    empleado.codtipd,
+                    empleado.codsex
+                    );
                 return RedirectToAction("Index");
             }
-            ViewBag.coddis = new SelectList(db.distrito, "coddis", "nomdis", empleado.coddis);
-            ViewBag.codrol = new SelectList(db.rol, "codrol", "nomrol", empleado.codrol);
-            ViewBag.codsex = new SelectList(db.sexo, "codsex", "nomsex", empleado.codsex);
-            ViewBag.codtipd = new SelectList(db.tipodocumento, "codtipd", "nomtipd", empleado.codtipd);
+            ViewBag.coddis = new SelectList(
+                db.Database.SqlQuery<distrito>("SP_MostrarDistrito").ToList(),
+                "coddis", "nomdis"
+                );
+            ViewBag.codrol = new SelectList(
+                db.Database.SqlQuery<rol>("SP_MostrarRol").ToList(),
+                "codrol", "nomrol"
+                );
+            ViewBag.codsex = new SelectList(
+                db.Database.SqlQuery<sexo>("SP_MostrarSexo").ToList(),
+                "codsex", "nomsex"
+                );
+            ViewBag.codtipd = new SelectList(
+                db.Database.SqlQuery<tipodocumento>("SP_MostrarTipoDocumento").ToList(),
+                "codtipd", "nomtipd"
+                );
             return View(empleado);
         }
 
@@ -113,7 +199,9 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            empleado empleado = db.empleado.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var empleado = db.Database.SqlQuery<empleado>
+                ("SP_BuscarEmpleadoXCodigo @codigo", pid).FirstOrDefault();
             if (empleado == null)
             {
                 return HttpNotFound();
@@ -126,8 +214,40 @@ namespace pe.com.cibereletrik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            empleado empleado = db.empleado.Find(id);
-            db.empleado.Remove(empleado);
+            db.Database.ExecuteSqlCommand(
+                "SP_EliminarEmpleado @p0", id
+                );
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // GET: Empleado/Enable/5
+        public ActionResult Enable(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var empleado = db.Database.SqlQuery<empleado>
+                ("SP_BuscarEmpleadoXCodigo @codigo", pid).FirstOrDefault();
+            if (empleado == null)
+            {
+                return HttpNotFound();
+            }
+            return View(empleado);
+        }
+
+        // POST: Empleado/Enable/5
+        [HttpPost, ActionName("Enable")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnableConfirmed(int id)
+        {
+            db.Database.ExecuteSqlCommand(
+                "SP_HabilitarEmpleado @p0", id
+                );
+            return RedirectToAction("Index");
+        }
             db.SaveChanges();
             return RedirectToAction("Index");
         }

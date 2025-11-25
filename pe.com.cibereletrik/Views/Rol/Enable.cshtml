@@ -1,0 +1,41 @@
+@model pe.com.ciberelectrik.rol
+
+@{
+    ViewBag.Title = "Enable";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Enable</h2>
+
+<h3>Are you sure you want to enable this?</h3>
+<div>
+    <h4>rol</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nomrol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nomrol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estrol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estrol)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Enable" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

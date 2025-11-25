@@ -1,4 +1,4 @@
-﻿@model IEnumerable<pe.com.cibereletrik.sexo>
+﻿@model IEnumerable<pe.com.ciberelectrik.SP_MostrarSexoTodo_Result>
 
 @{
     ViewBag.Title = "Index";
@@ -32,7 +32,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.codsex }) |
             @Html.ActionLink("Details", "Details", new { id=item.codsex }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.codsex })
+            @Html.ActionLink("Delete", "Delete", new { id=item.codsex }) |
+            @Html.ActionLink("Enable", "Enable", new { id=item.codsex })
         </td>
     </tr>
 }

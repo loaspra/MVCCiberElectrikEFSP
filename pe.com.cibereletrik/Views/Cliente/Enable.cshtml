@@ -1,0 +1,121 @@
+@model pe.com.cibereletrik.cliente
+
+@{
+    ViewBag.Title = "Enable";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Enable</h2>
+
+<h3>Are you sure you want to enable this?</h3>
+<div>
+    <h4>cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nomcli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nomcli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.apepcli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.apepcli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.apemcli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.apemcli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.doccli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.doccli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dircli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dircli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telcli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telcli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.celcli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.celcli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.corcli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.corcli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estcli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estcli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.distrito.nomdis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.distrito.nomdis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipodocumento.nomtipd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipodocumento.nomtipd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sexo.nomsex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sexo.nomsex)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Enable" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

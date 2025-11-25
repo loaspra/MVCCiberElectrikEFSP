@@ -1,4 +1,4 @@
-﻿@model IEnumerable<pe.com.cibereletrik.rol>
+﻿@model IEnumerable<pe.com.ciberelectrik.SP_MostrarRolTodo_Result>
 
 @{
     ViewBag.Title = "Index";
@@ -32,7 +32,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.codrol }) |
             @Html.ActionLink("Details", "Details", new { id=item.codrol }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.codrol })
+            @Html.ActionLink("Delete", "Delete", new { id=item.codrol }) |
+            @Html.ActionLink("Enable", "Enable", new { id=item.codrol })
         </td>
     </tr>
 }

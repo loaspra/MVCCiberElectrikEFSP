@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,7 +18,8 @@ namespace pe.com.cibereletrik.Controllers
         // GET: Sexo
         public ActionResult Index()
         {
-            return View(db.sexo.ToList());
+            var lista = db.Database.SqlQuery<SP_MostrarSexoTodo_Result>("SP_MostrarSexoTodo").ToList();
+            return View(lista);
         }
 
         // GET: Sexo/Details/5
@@ -27,7 +29,8 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            sexo sexo = db.sexo.Find(id);
+            var codigo = new SqlParameter("@codigo", id);
+            sexo sexo = db.Database.SqlQuery<sexo>("SP_BuscarSexoXCodigo @codigo", codigo).FirstOrDefault();
             if (sexo == null)
             {
                 return HttpNotFound();
@@ -50,8 +53,9 @@ namespace pe.com.cibereletrik.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.sexo.Add(sexo);
-                db.SaveChanges();
+                var nombre = new SqlParameter("@nombre", sexo.nomsex);
+                var estado = new SqlParameter("@estado", sexo.estsex);
+                db.Database.ExecuteSqlCommand("SP_RegistrarSexo @nombre, @estado", nombre, estado);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +69,8 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            sexo sexo = db.sexo.Find(id);
+            var codigo = new SqlParameter("@codigo", id);
+            sexo sexo = db.Database.SqlQuery<sexo>("SP_BuscarSexoXCodigo @codigo", codigo).FirstOrDefault();
             if (sexo == null)
             {
                 return HttpNotFound();
@@ -82,8 +87,10 @@ namespace pe.com.cibereletrik.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sexo).State = EntityState.Modified;
-                db.SaveChanges();
+                var codigo = new SqlParameter("@codigo", sexo.codsex);
+                var nombre = new SqlParameter("@nombre", sexo.nomsex);
+                var estado = new SqlParameter("@estado", sexo.estsex);
+                db.Database.ExecuteSqlCommand("SP_ActualizarSexo @codigo, @nombre, @estado", codigo, nombre, estado);
                 return RedirectToAction("Index");
             }
             return View(sexo);
@@ -96,7 +103,8 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            sexo sexo = db.sexo.Find(id);
+            var codigo = new SqlParameter("@codigo", id);
+            sexo sexo = db.Database.SqlQuery<sexo>("SP_BuscarSexoXCodigo @codigo", codigo).FirstOrDefault();
             if (sexo == null)
             {
                 return HttpNotFound();
@@ -109,9 +117,34 @@ namespace pe.com.cibereletrik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            sexo sexo = db.sexo.Find(id);
-            db.sexo.Remove(sexo);
-            db.SaveChanges();
+            var codigo = new SqlParameter("@codigo", id);
+            db.Database.ExecuteSqlCommand("SP_EliminarSexo @codigo", codigo);
+            return RedirectToAction("Index");
+        }
+
+        // GET: Sexo/Enable/5
+        public ActionResult Enable(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var codigo = new SqlParameter("@codigo", id);
+            sexo sexo = db.Database.SqlQuery<sexo>("SP_BuscarSexoXCodigo @codigo", codigo).FirstOrDefault();
+            if (sexo == null)
+            {
+                return HttpNotFound();
+            }
+            return View(sexo);
+        }
+
+        // POST: Sexo/Enable/5
+        [HttpPost, ActionName("Enable")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnableConfirmed(int id)
+        {
+            var codigo = new SqlParameter("@codigo", id);
+            db.Database.ExecuteSqlCommand("SP_HabilitarSexo @codigo", codigo);
             return RedirectToAction("Index");
         }
 

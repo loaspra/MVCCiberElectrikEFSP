@@ -1,4 +1,4 @@
-﻿@model IEnumerable<pe.com.cibereletrik.empleado>
+﻿@model IEnumerable<pe.com.ciberelectrik.SP_MostrarEmpleadoTodo_Result>
 
 @{
     ViewBag.Title = "Index";
@@ -46,73 +46,75 @@
             @Html.DisplayNameFor(model => model.estemp)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.distrito.nomdis)
+            @Html.DisplayNameFor(model => model.nomdis)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.rol.nomrol)
+            @Html.DisplayNameFor(model => model.nomrol)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sexo.nomsex)
+            @Html.DisplayNameFor(model => model.nomsex)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tipodocumento.nomtipd)
+            @Html.DisplayNameFor(model => model.nomtipd)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nomemp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.apepemp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.apememp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.docemp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.diremp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.telemp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.celemp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.coremp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.usuemp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.claemp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estemp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.distrito.nomdis)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.rol.nomrol)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sexo.nomsex)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tipodocumento.nomtipd)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.codemp }) |
-            @Html.ActionLink("Details", "Details", new { id=item.codemp }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.codemp })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomemp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.apepemp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.apememp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.docemp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.diremp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telemp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.celemp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.coremp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.usuemp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.claemp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estemp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomdis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomrol)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomsex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomtipd)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.codemp }) |
+                @Html.ActionLink("Details", "Details", new { id = item.codemp }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.codemp }) |
+                @Html.ActionLink("Enable", "Enable", new { id = item.codemp })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,8 +18,8 @@ namespace pe.com.cibereletrik.Controllers
         // GET: TicketPedido
         public ActionResult Index()
         {
-            var ticketpedido = db.ticketpedido.Include(t => t.cliente).Include(t => t.empleado);
-            return View(ticketpedido.ToList());
+            var lista = db.Database.SqlQuery<SP_MostrarTicketPedidoTodo_Result>("SP_MostrarTicketPedidoTodo").ToList();
+            return View(lista);
         }
 
         // GET: TicketPedido/Details/5
@@ -28,7 +29,8 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ticketpedido ticketpedido = db.ticketpedido.Find(id);
+            var codigo = new SqlParameter("@codigo", id);
+            ticketpedido ticketpedido = db.Database.SqlQuery<ticketpedido>("SP_BuscarTicketPedidoXCodigo @codigo", codigo).FirstOrDefault();
             if (ticketpedido == null)
             {
                 return HttpNotFound();
@@ -39,8 +41,10 @@ namespace pe.com.cibereletrik.Controllers
         // GET: TicketPedido/Create
         public ActionResult Create()
         {
-            ViewBag.codcli = new SelectList(db.cliente, "codcli", "nomcli");
-            ViewBag.codemp = new SelectList(db.empleado, "codemp", "nomemp");
+            var listaClientes = db.Database.SqlQuery<SP_MostrarCliente_Result>("SP_MostrarCliente").ToList();
+            var listaEmpleados = db.Database.SqlQuery<SP_MostrarEmpleado_Result>("SP_MostrarEmpleado").ToList();
+            ViewBag.codcli = new SelectList(listaClientes, "codcli", "nomcli");
+            ViewBag.codemp = new SelectList(listaEmpleados, "codemp", "nomemp");
             return View();
         }
 
@@ -53,13 +57,19 @@ namespace pe.com.cibereletrik.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ticketpedido.Add(ticketpedido);
-                db.SaveChanges();
+                var fecha = new SqlParameter("@fecha", ticketpedido.fecped);
+                var empleado = new SqlParameter("@empleado", ticketpedido.codemp);
+                var cliente = new SqlParameter("@cliente", ticketpedido.codcli);
+                var estado = new SqlParameter("@estado", ticketpedido.estped);
+                db.Database.ExecuteSqlCommand("SP_RegistrarTicketPedido @fecha, @empleado, @cliente, @estado", 
+                    fecha, empleado, cliente, estado);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.codcli = new SelectList(db.cliente, "codcli", "nomcli", ticketpedido.codcli);
-            ViewBag.codemp = new SelectList(db.empleado, "codemp", "nomemp", ticketpedido.codemp);
+            var listaClientes = db.Database.SqlQuery<SP_MostrarCliente_Result>("SP_MostrarCliente").ToList();
+            var listaEmpleados = db.Database.SqlQuery<SP_MostrarEmpleado_Result>("SP_MostrarEmpleado").ToList();
+            ViewBag.codcli = new SelectList(listaClientes, "codcli", "nomcli", ticketpedido.codcli);
+            ViewBag.codemp = new SelectList(listaEmpleados, "codemp", "nomemp", ticketpedido.codemp);
             return View(ticketpedido);
         }
 
@@ -70,13 +80,16 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ticketpedido ticketpedido = db.ticketpedido.Find(id);
+            var codigo = new SqlParameter("@codigo", id);
+            ticketpedido ticketpedido = db.Database.SqlQuery<ticketpedido>("SP_BuscarTicketPedidoXCodigo @codigo", codigo).FirstOrDefault();
             if (ticketpedido == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.codcli = new SelectList(db.cliente, "codcli", "nomcli", ticketpedido.codcli);
-            ViewBag.codemp = new SelectList(db.empleado, "codemp", "nomemp", ticketpedido.codemp);
+            var listaClientes = db.Database.SqlQuery<SP_MostrarCliente_Result>("SP_MostrarCliente").ToList();
+            var listaEmpleados = db.Database.SqlQuery<SP_MostrarEmpleado_Result>("SP_MostrarEmpleado").ToList();
+            ViewBag.codcli = new SelectList(listaClientes, "codcli", "nomcli", ticketpedido.codcli);
+            ViewBag.codemp = new SelectList(listaEmpleados, "codemp", "nomemp", ticketpedido.codemp);
             return View(ticketpedido);
         }
 
@@ -89,12 +102,19 @@ namespace pe.com.cibereletrik.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ticketpedido).State = EntityState.Modified;
-                db.SaveChanges();
+                var numero = new SqlParameter("@numero", ticketpedido.nroped);
+                var fecha = new SqlParameter("@fecha", ticketpedido.fecped);
+                var empleado = new SqlParameter("@empleado", ticketpedido.codemp);
+                var cliente = new SqlParameter("@cliente", ticketpedido.codcli);
+                var estado = new SqlParameter("@estado", ticketpedido.estped);
+                db.Database.ExecuteSqlCommand("SP_ActualizarTicketPedido @numero, @fecha, @empleado, @cliente, @estado", 
+                    numero, fecha, empleado, cliente, estado);
                 return RedirectToAction("Index");
             }
-            ViewBag.codcli = new SelectList(db.cliente, "codcli", "nomcli", ticketpedido.codcli);
-            ViewBag.codemp = new SelectList(db.empleado, "codemp", "nomemp", ticketpedido.codemp);
+            var listaClientes = db.Database.SqlQuery<SP_MostrarCliente_Result>("SP_MostrarCliente").ToList();
+            var listaEmpleados = db.Database.SqlQuery<SP_MostrarEmpleado_Result>("SP_MostrarEmpleado").ToList();
+            ViewBag.codcli = new SelectList(listaClientes, "codcli", "nomcli", ticketpedido.codcli);
+            ViewBag.codemp = new SelectList(listaEmpleados, "codemp", "nomemp", ticketpedido.codemp);
             return View(ticketpedido);
         }
 
@@ -105,7 +125,8 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ticketpedido ticketpedido = db.ticketpedido.Find(id);
+            var codigo = new SqlParameter("@codigo", id);
+            ticketpedido ticketpedido = db.Database.SqlQuery<ticketpedido>("SP_BuscarTicketPedidoXCodigo @codigo", codigo).FirstOrDefault();
             if (ticketpedido == null)
             {
                 return HttpNotFound();
@@ -118,9 +139,34 @@ namespace pe.com.cibereletrik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ticketpedido ticketpedido = db.ticketpedido.Find(id);
-            db.ticketpedido.Remove(ticketpedido);
-            db.SaveChanges();
+            var codigo = new SqlParameter("@codigo", id);
+            db.Database.ExecuteSqlCommand("SP_EliminarTicketPedido @codigo", codigo);
+            return RedirectToAction("Index");
+        }
+
+        // GET: TicketPedido/Enable/5
+        public ActionResult Enable(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var codigo = new SqlParameter("@codigo", id);
+            ticketpedido ticketpedido = db.Database.SqlQuery<ticketpedido>("SP_BuscarTicketPedidoXCodigo @codigo", codigo).FirstOrDefault();
+            if (ticketpedido == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ticketpedido);
+        }
+
+        // POST: TicketPedido/Enable/5
+        [HttpPost, ActionName("Enable")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnableConfirmed(int id)
+        {
+            var codigo = new SqlParameter("@codigo", id);
+            db.Database.ExecuteSqlCommand("SP_HabilitarTicketPedido @codigo", codigo);
             return RedirectToAction("Index");
         }
 

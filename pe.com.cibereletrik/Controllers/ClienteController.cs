@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,8 +18,8 @@ namespace pe.com.cibereletrik.Controllers
         // GET: Cliente
         public ActionResult Index()
         {
-            var cliente = db.cliente.Include(c => c.distrito).Include(c => c.sexo).Include(c => c.tipodocumento);
-            return View(cliente.ToList());
+            var lista = db.SP_MostrarClienteTodo().ToList();
+            return View(lista);
         }
 
         // GET: Cliente/Details/5
@@ -28,7 +29,9 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            cliente cliente = db.cliente.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var cliente = db.Database.SqlQuery<cliente>
+                ("SP_BuscarClienteXCodigo @codigo", pid).FirstOrDefault();
             if (cliente == null)
             {
                 return HttpNotFound();
@@ -39,29 +42,60 @@ namespace pe.com.cibereletrik.Controllers
         // GET: Cliente/Create
         public ActionResult Create()
         {
-            ViewBag.coddis = new SelectList(db.distrito, "coddis", "nomdis");
-            ViewBag.codsex = new SelectList(db.sexo, "codsex", "nomsex");
-            ViewBag.codtipd = new SelectList(db.tipodocumento, "codtipd", "nomtipd");
+            ViewBag.coddis = new SelectList(
+                db.Database.SqlQuery<distrito>("SP_MostrarDistrito").ToList(),
+                "coddis", "nomdis"
+                );
+            ViewBag.codsex = new SelectList(
+                db.Database.SqlQuery<sexo>("SP_MostrarSexo").ToList(),
+                "codsex", "nomsex"
+                );
+            ViewBag.codtipd = new SelectList(
+                db.Database.SqlQuery<tipodocumento>("SP_MostrarTipoDocumento").ToList(),
+                "codtipd", "nomtipd"
+                );
             return View();
         }
 
         // POST: Cliente/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "codcli,nomcli,apepcli,apemcli,doccli,dircli,telcli,celcli,corcli,estcli,coddis,codtipd,codsex")] cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                db.cliente.Add(cliente);
-                db.SaveChanges();
+                db.Database.ExecuteSqlCommand(
+                    "SP_RegistrarCliente @p0,@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11",
+                    cliente.nomcli,
+                    cliente.apepcli,
+                    cliente.apemcli,
+                    cliente.doccli,
+                    cliente.dircli,
+                    cliente.telcli,
+                    cliente.celcli,
+                    cliente.corcli,
+                    cliente.estcli,
+                    cliente.coddis,
+                    cliente.codtipd,
+                    cliente.codsex
+                    );
                 return RedirectToAction("Index");
             }
 
-            ViewBag.coddis = new SelectList(db.distrito, "coddis", "nomdis", cliente.coddis);
-            ViewBag.codsex = new SelectList(db.sexo, "codsex", "nomsex", cliente.codsex);
-            ViewBag.codtipd = new SelectList(db.tipodocumento, "codtipd", "nomtipd", cliente.codtipd);
+            ViewBag.coddis = new SelectList(
+                db.Database.SqlQuery<distrito>("SP_MostrarDistrito").ToList(),
+                "coddis", "nomdis"
+                );
+            ViewBag.codsex = new SelectList(
+                db.Database.SqlQuery<sexo>("SP_MostrarSexo").ToList(),
+                "codsex", "nomsex"
+                );
+            ViewBag.codtipd = new SelectList(
+                db.Database.SqlQuery<tipodocumento>("SP_MostrarTipoDocumento").ToList(),
+                "codtipd", "nomtipd"
+                );
             return View(cliente);
         }
 
@@ -72,33 +106,67 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            cliente cliente = db.cliente.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var cliente = db.Database.SqlQuery<cliente>
+                ("SP_BuscarClienteXCodigo @codigo", pid).FirstOrDefault();
             if (cliente == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.coddis = new SelectList(db.distrito, "coddis", "nomdis", cliente.coddis);
-            ViewBag.codsex = new SelectList(db.sexo, "codsex", "nomsex", cliente.codsex);
-            ViewBag.codtipd = new SelectList(db.tipodocumento, "codtipd", "nomtipd", cliente.codtipd);
+            ViewBag.coddis = new SelectList(
+                db.Database.SqlQuery<distrito>("SP_MostrarDistrito").ToList(),
+                "coddis", "nomdis"
+                );
+            ViewBag.codsex = new SelectList(
+                db.Database.SqlQuery<sexo>("SP_MostrarSexo").ToList(),
+                "codsex", "nomsex"
+                );
+            ViewBag.codtipd = new SelectList(
+                db.Database.SqlQuery<tipodocumento>("SP_MostrarTipoDocumento").ToList(),
+                "codtipd", "nomtipd"
+                );
             return View(cliente);
         }
 
         // POST: Cliente/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "codcli,nomcli,apepcli,apemcli,doccli,dircli,telcli,celcli,corcli,estcli,coddis,codtipd,codsex")] cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cliente).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Database.ExecuteSqlCommand(
+                    "SP_ActualizarCliente @p0,@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12",
+                    cliente.codcli,
+                    cliente.nomcli,
+                    cliente.apepcli,
+                    cliente.apemcli,
+                    cliente.doccli,
+                    cliente.dircli,
+                    cliente.telcli,
+                    cliente.celcli,
+                    cliente.corcli,
+                    cliente.estcli,
+                    cliente.coddis,
+                    cliente.codtipd,
+                    cliente.codsex
+                    );
                 return RedirectToAction("Index");
             }
-            ViewBag.coddis = new SelectList(db.distrito, "coddis", "nomdis", cliente.coddis);
-            ViewBag.codsex = new SelectList(db.sexo, "codsex", "nomsex", cliente.codsex);
-            ViewBag.codtipd = new SelectList(db.tipodocumento, "codtipd", "nomtipd", cliente.codtipd);
+            ViewBag.coddis = new SelectList(
+                db.Database.SqlQuery<distrito>("SP_MostrarDistrito").ToList(),
+                "coddis", "nomdis"
+                );
+            ViewBag.codsex = new SelectList(
+                db.Database.SqlQuery<sexo>("SP_MostrarSexo").ToList(),
+                "codsex", "nomsex"
+                );
+            ViewBag.codtipd = new SelectList(
+                db.Database.SqlQuery<tipodocumento>("SP_MostrarTipoDocumento").ToList(),
+                "codtipd", "nomtipd"
+                );
             return View(cliente);
         }
 
@@ -109,7 +177,9 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            cliente cliente = db.cliente.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var cliente = db.Database.SqlQuery<cliente>
+                ("SP_BuscarClienteXCodigo @codigo", pid).FirstOrDefault();
             if (cliente == null)
             {
                 return HttpNotFound();
@@ -122,9 +192,37 @@ namespace pe.com.cibereletrik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            cliente cliente = db.cliente.Find(id);
-            db.cliente.Remove(cliente);
-            db.SaveChanges();
+            db.Database.ExecuteSqlCommand(
+                "SP_EliminarCliente @p0", id
+                );
+            return RedirectToAction("Index");
+        }
+
+        // GET: Cliente/Enable/5
+        public ActionResult Enable(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var cliente = db.Database.SqlQuery<cliente>
+                ("SP_BuscarClienteXCodigo @codigo", pid).FirstOrDefault();
+            if (cliente == null)
+            {
+                return HttpNotFound();
+            }
+            return View(cliente);
+        }
+
+        // POST: Cliente/Enable/5
+        [HttpPost, ActionName("Enable")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnableConfirmed(int id)
+        {
+            db.Database.ExecuteSqlCommand(
+                "SP_HabilitarCliente @p0", id
+                );
             return RedirectToAction("Index");
         }
 

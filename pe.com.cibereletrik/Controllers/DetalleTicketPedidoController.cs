@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,8 +18,8 @@ namespace pe.com.cibereletrik.Controllers
         // GET: DetalleTicketPedido
         public ActionResult Index()
         {
-            var detalleticketpedido = db.detalleticketpedido.Include(d => d.producto).Include(d => d.ticketpedido);
-            return View(detalleticketpedido.ToList());
+            var lista = db.SP_MostrarDetalleTicketPedidoTodo().ToList();
+            return View(lista);
         }
 
         // GET: DetalleTicketPedido/Details/5
@@ -28,7 +29,9 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            detalleticketpedido detalleticketpedido = db.detalleticketpedido.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var detalleticketpedido = db.Database.SqlQuery<detalleticketpedido>
+                ("SP_BuscarDetalleTicketPedidoXCodigo @codigo", pid).FirstOrDefault();
             if (detalleticketpedido == null)
             {
                 return HttpNotFound();
@@ -39,27 +42,38 @@ namespace pe.com.cibereletrik.Controllers
         // GET: DetalleTicketPedido/Create
         public ActionResult Create()
         {
-            ViewBag.codpro = new SelectList(db.producto, "codpro", "nompro");
+            ViewBag.codpro = new SelectList(
+                db.Database.SqlQuery<producto>("SP_MostrarProducto").ToList(),
+                "codpro", "nompro"
+                );
             ViewBag.nroped = new SelectList(db.ticketpedido, "nroped", "nroped");
             return View();
         }
 
         // POST: DetalleTicketPedido/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "nrodet,canent,preent,nroped,codpro")] detalleticketpedido detalleticketpedido)
         {
             if (ModelState.IsValid)
             {
-                db.detalleticketpedido.Add(detalleticketpedido);
-                db.SaveChanges();
+                db.Database.ExecuteSqlCommand(
+                    "SP_RegistrarDetalleTicketPedido @p0,@p1,@p2,@p3",
+                    detalleticketpedido.canent,
+                    detalleticketpedido.preent,
+                    detalleticketpedido.nroped,
+                    detalleticketpedido.codpro
+                    );
                 return RedirectToAction("Index");
             }
 
-            ViewBag.codpro = new SelectList(db.producto, "codpro", "nompro", detalleticketpedido.codpro);
-            ViewBag.nroped = new SelectList(db.ticketpedido, "nroped", "nroped", detalleticketpedido.nroped);
+            ViewBag.codpro = new SelectList(
+                db.Database.SqlQuery<producto>("SP_MostrarProducto").ToList(),
+                "codpro", "nompro"
+                );
+            ViewBag.nroped = new SelectList(db.ticketpedido, "nroped", "nroped");
             return View(detalleticketpedido);
         }
 
@@ -70,31 +84,45 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            detalleticketpedido detalleticketpedido = db.detalleticketpedido.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var detalleticketpedido = db.Database.SqlQuery<detalleticketpedido>
+                ("SP_BuscarDetalleTicketPedidoXCodigo @codigo", pid).FirstOrDefault();
             if (detalleticketpedido == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.codpro = new SelectList(db.producto, "codpro", "nompro", detalleticketpedido.codpro);
-            ViewBag.nroped = new SelectList(db.ticketpedido, "nroped", "nroped", detalleticketpedido.nroped);
+            ViewBag.codpro = new SelectList(
+                db.Database.SqlQuery<producto>("SP_MostrarProducto").ToList(),
+                "codpro", "nompro"
+                );
+            ViewBag.nroped = new SelectList(db.ticketpedido, "nroped", "nroped");
             return View(detalleticketpedido);
         }
 
         // POST: DetalleTicketPedido/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "nrodet,canent,preent,nroped,codpro")] detalleticketpedido detalleticketpedido)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(detalleticketpedido).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Database.ExecuteSqlCommand(
+                    "SP_ActualizarDetalleTicketPedido @p0,@p1,@p2,@p3,@p4",
+                    detalleticketpedido.nrodet,
+                    detalleticketpedido.canent,
+                    detalleticketpedido.preent,
+                    detalleticketpedido.nroped,
+                    detalleticketpedido.codpro
+                    );
                 return RedirectToAction("Index");
             }
-            ViewBag.codpro = new SelectList(db.producto, "codpro", "nompro", detalleticketpedido.codpro);
-            ViewBag.nroped = new SelectList(db.ticketpedido, "nroped", "nroped", detalleticketpedido.nroped);
+            ViewBag.codpro = new SelectList(
+                db.Database.SqlQuery<producto>("SP_MostrarProducto").ToList(),
+                "codpro", "nompro"
+                );
+            ViewBag.nroped = new SelectList(db.ticketpedido, "nroped", "nroped");
             return View(detalleticketpedido);
         }
 
@@ -105,7 +133,9 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            detalleticketpedido detalleticketpedido = db.detalleticketpedido.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var detalleticketpedido = db.Database.SqlQuery<detalleticketpedido>
+                ("SP_BuscarDetalleTicketPedidoXCodigo @codigo", pid).FirstOrDefault();
             if (detalleticketpedido == null)
             {
                 return HttpNotFound();
@@ -118,9 +148,9 @@ namespace pe.com.cibereletrik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            detalleticketpedido detalleticketpedido = db.detalleticketpedido.Find(id);
-            db.detalleticketpedido.Remove(detalleticketpedido);
-            db.SaveChanges();
+            db.Database.ExecuteSqlCommand(
+                "SP_EliminarDetalleTicketPedido @p0", id
+                );
             return RedirectToAction("Index");
         }
 
