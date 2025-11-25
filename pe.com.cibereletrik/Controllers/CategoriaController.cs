@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -28,7 +29,9 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            categoria categoria = db.categoria.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var categoria = db.Database.SqlQuery<categoria>
+                ("SP_BuscarCategoriaXCodigo @codigo", pid).FirstOrDefault();
             if (categoria == null)
             {
                 return HttpNotFound();
@@ -43,16 +46,19 @@ namespace pe.com.cibereletrik.Controllers
         }
 
         // POST: Categoria/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "codcat,nomcat,estcat")] categoria categoria)
         {
             if (ModelState.IsValid)
             {
-                db.categoria.Add(categoria);
-                db.SaveChanges();
+                db.Database.ExecuteSqlCommand(
+                    "SP_RegistrarCategoria @nombre, @estado",
+                    new SqlParameter("@nombre",categoria.nomcat),
+                    new SqlParameter("@estado", categoria.estcat)
+                    );
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +72,9 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            categoria categoria = db.categoria.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var categoria = db.Database.SqlQuery<categoria>
+                ("SP_BuscarCategoriaXCodigo @codigo", pid).FirstOrDefault();
             if (categoria == null)
             {
                 return HttpNotFound();
@@ -75,16 +83,20 @@ namespace pe.com.cibereletrik.Controllers
         }
 
         // POST: Categoria/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "codcat,nomcat,estcat")] categoria categoria)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(categoria).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Database.ExecuteSqlCommand(
+                    "SP_ActualizarCategoria @codigo,@nombre, @estado",
+                    new SqlParameter("@codigo", categoria.codcat),
+                    new SqlParameter("@nombre", categoria.nomcat),
+                    new SqlParameter("@estado", categoria.estcat)
+                    );
                 return RedirectToAction("Index");
             }
             return View(categoria);
@@ -97,7 +109,9 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            categoria categoria = db.categoria.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var categoria = db.Database.SqlQuery<categoria>
+                ("SP_BuscarCategoriaXCodigo @codigo", pid).FirstOrDefault();
             if (categoria == null)
             {
                 return HttpNotFound();
@@ -110,9 +124,40 @@ namespace pe.com.cibereletrik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            categoria categoria = db.categoria.Find(id);
-            db.categoria.Remove(categoria);
-            db.SaveChanges();
+            db.Database.ExecuteSqlCommand(
+                "SP_EliminarCategoria @codigo",
+                new SqlParameter("@codigo", id)
+                );
+            return RedirectToAction("Index");
+        }
+
+
+        // GET: Categoria/Enable/5
+        public ActionResult Enable(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var categoria = db.Database.SqlQuery<categoria>
+                ("SP_BuscarCategoriaXCodigo @codigo", pid).FirstOrDefault();
+            if (categoria == null)
+            {
+                return HttpNotFound();
+            }
+            return View(categoria);
+        }
+
+        // POST: Categoria/Delete/5
+        [HttpPost, ActionName("Enable")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnableConfirmed(int id)
+        {
+            db.Database.ExecuteSqlCommand(
+                "SP_HabilitarCategoria @codigo",
+                new SqlParameter("@codigo", id)
+                );
             return RedirectToAction("Index");
         }
 

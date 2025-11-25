@@ -1,4 +1,4 @@
-﻿@model IEnumerable<pe.com.cibereletrik.producto>
+﻿@model IEnumerable<pe.com.ciberelectrik.SP_MostrarProductoTodo_Result>
 
 @{
     ViewBag.Title = "Index";
@@ -31,46 +31,48 @@
             @Html.DisplayNameFor(model => model.estpro)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.categoria.nomcat)
+            @Html.DisplayNameFor(model => model.nomcat)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.marca.nommar)
+            @Html.DisplayNameFor(model => model.nommar)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nompro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.despro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.prepro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.canpro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecing)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estpro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.categoria.nomcat)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.marca.nommar)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.codpro }) |
-            @Html.ActionLink("Details", "Details", new { id=item.codpro }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.codpro })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nompro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.despro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prepro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.canpro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecing)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estpro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomcat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nommar)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.codpro }) |
+                @Html.ActionLink("Details", "Details", new { id = item.codpro }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.codpro }) |
+                @Html.ActionLink("Enable", "Enable", new { id = item.codpro })
+            </td>
+        </tr>
+    }
 
 </table>

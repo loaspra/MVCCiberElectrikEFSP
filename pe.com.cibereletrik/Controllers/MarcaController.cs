@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,7 +18,8 @@ namespace pe.com.cibereletrik.Controllers
         // GET: Marca
         public ActionResult Index()
         {
-            return View(db.marca.ToList());
+            var lista = db.Database.SqlQuery<marca>("SP_MostrarMarcaTodo").ToList();
+            return View(lista);
         }
 
         // GET: Marca/Details/5
@@ -27,7 +29,9 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            marca marca = db.marca.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var marca = db.Database.SqlQuery<marca>
+                ("SP_BuscarMarcaXCodigo @codigo", pid).FirstOrDefault();
             if (marca == null)
             {
                 return HttpNotFound();
@@ -42,16 +46,19 @@ namespace pe.com.cibereletrik.Controllers
         }
 
         // POST: Marca/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "codmar,nommar,estmar")] marca marca)
         {
             if (ModelState.IsValid)
             {
-                db.marca.Add(marca);
-                db.SaveChanges();
+                db.Database.ExecuteSqlCommand(
+                    "SP_RegistrarMarca @nombre, @estado",
+                    new SqlParameter("@nombre", marca.nommar),
+                    new SqlParameter("@estado", marca.estmar)
+                    );
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +72,9 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            marca marca = db.marca.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var marca = db.Database.SqlQuery<marca>
+                ("SP_BuscarMarcaXCodigo @codigo", pid).FirstOrDefault();
             if (marca == null)
             {
                 return HttpNotFound();
@@ -74,16 +83,20 @@ namespace pe.com.cibereletrik.Controllers
         }
 
         // POST: Marca/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "codmar,nommar,estmar")] marca marca)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(marca).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Database.ExecuteSqlCommand(
+                    "SP_ActualizarMarca @codigo,@nombre, @estado",
+                    new SqlParameter("@codigo", marca.codmar),
+                    new SqlParameter("@nombre", marca.nommar),
+                    new SqlParameter("@estado", marca.estmar)
+                    );
                 return RedirectToAction("Index");
             }
             return View(marca);
@@ -96,7 +109,9 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            marca marca = db.marca.Find(id);
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var marca = db.Database.SqlQuery<marca>
+                ("SP_BuscarMarcaXCodigo @codigo", pid).FirstOrDefault();
             if (marca == null)
             {
                 return HttpNotFound();
@@ -109,9 +124,40 @@ namespace pe.com.cibereletrik.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            marca marca = db.marca.Find(id);
-            db.marca.Remove(marca);
-            db.SaveChanges();
+            db.Database.ExecuteSqlCommand(
+                "SP_EliminarMarca @codigo",
+                new SqlParameter("@codigo", id)
+                );
+            return RedirectToAction("Index");
+        }
+
+
+        // GET: Marca/Enable/5
+        public ActionResult Enable(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SqlParameter pid = new SqlParameter("@codigo", id);
+            var marca = db.Database.SqlQuery<marca>
+                ("SP_BuscarMarcaXCodigo @codigo", pid).FirstOrDefault();
+            if (marca == null)
+            {
+                return HttpNotFound();
+            }
+            return View(marca);
+        }
+
+        // POST: Marca/Enable/5
+        [HttpPost, ActionName("Enable")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnableConfirmed(int id)
+        {
+            db.Database.ExecuteSqlCommand(
+                "SP_HabilitarMarca @codigo",
+                new SqlParameter("@codigo", id)
+                );
             return RedirectToAction("Index");
         }
 
