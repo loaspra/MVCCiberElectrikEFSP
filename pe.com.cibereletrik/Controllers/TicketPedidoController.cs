@@ -41,10 +41,8 @@ namespace pe.com.cibereletrik.Controllers
         // GET: TicketPedido/Create
         public ActionResult Create()
         {
-            var listaClientes = db.Database.SqlQuery<SP_MostrarCliente_Result>("SP_MostrarCliente").ToList();
-            var listaEmpleados = db.Database.SqlQuery<SP_MostrarEmpleado_Result>("SP_MostrarEmpleado").ToList();
-            ViewBag.codcli = new SelectList(listaClientes, "codcli", "nomcli");
-            ViewBag.codemp = new SelectList(listaEmpleados, "codemp", "nomemp");
+            ViewBag.codcli = new SelectList(db.cliente.Where(c => c.estcli == true).ToList(), "codcli", "nomcli");
+            ViewBag.codemp = new SelectList(db.empleado.Where(e => e.estemp == true).ToList(), "codemp", "nomemp");
             return View();
         }
 
@@ -66,10 +64,8 @@ namespace pe.com.cibereletrik.Controllers
                 return RedirectToAction("Index");
             }
 
-            var listaClientes = db.Database.SqlQuery<SP_MostrarCliente_Result>("SP_MostrarCliente").ToList();
-            var listaEmpleados = db.Database.SqlQuery<SP_MostrarEmpleado_Result>("SP_MostrarEmpleado").ToList();
-            ViewBag.codcli = new SelectList(listaClientes, "codcli", "nomcli", ticketpedido.codcli);
-            ViewBag.codemp = new SelectList(listaEmpleados, "codemp", "nomemp", ticketpedido.codemp);
+            ViewBag.codcli = new SelectList(db.cliente.Where(c => c.estcli == true).ToList(), "codcli", "nomcli", ticketpedido.codcli);
+            ViewBag.codemp = new SelectList(db.empleado.Where(e => e.estemp == true).ToList(), "codemp", "nomemp", ticketpedido.codemp);
             return View(ticketpedido);
         }
 
@@ -86,10 +82,8 @@ namespace pe.com.cibereletrik.Controllers
             {
                 return HttpNotFound();
             }
-            var listaClientes = db.Database.SqlQuery<SP_MostrarCliente_Result>("SP_MostrarCliente").ToList();
-            var listaEmpleados = db.Database.SqlQuery<SP_MostrarEmpleado_Result>("SP_MostrarEmpleado").ToList();
-            ViewBag.codcli = new SelectList(listaClientes, "codcli", "nomcli", ticketpedido.codcli);
-            ViewBag.codemp = new SelectList(listaEmpleados, "codemp", "nomemp", ticketpedido.codemp);
+            ViewBag.codcli = new SelectList(db.cliente.Where(c => c.estcli == true).ToList(), "codcli", "nomcli", ticketpedido.codcli);
+            ViewBag.codemp = new SelectList(db.empleado.Where(e => e.estemp == true).ToList(), "codemp", "nomemp", ticketpedido.codemp);
             return View(ticketpedido);
         }
 
@@ -111,10 +105,8 @@ namespace pe.com.cibereletrik.Controllers
                     numero, fecha, empleado, cliente, estado);
                 return RedirectToAction("Index");
             }
-            var listaClientes = db.Database.SqlQuery<SP_MostrarCliente_Result>("SP_MostrarCliente").ToList();
-            var listaEmpleados = db.Database.SqlQuery<SP_MostrarEmpleado_Result>("SP_MostrarEmpleado").ToList();
-            ViewBag.codcli = new SelectList(listaClientes, "codcli", "nomcli", ticketpedido.codcli);
-            ViewBag.codemp = new SelectList(listaEmpleados, "codemp", "nomemp", ticketpedido.codemp);
+            ViewBag.codcli = new SelectList(db.cliente.Where(c => c.estcli == true).ToList(), "codcli", "nomcli", ticketpedido.codcli);
+            ViewBag.codemp = new SelectList(db.empleado.Where(e => e.estemp == true).ToList(), "codemp", "nomemp", ticketpedido.codemp);
             return View(ticketpedido);
         }
 
