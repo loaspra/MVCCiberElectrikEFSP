@@ -1,4 +1,4 @@
-﻿@model IEnumerable<pe.com.ciberelectrik.SP_MostrarEmpleadoTodo_Result>
+﻿@model IEnumerable<pe.com.cibereletrik.empleado>
 
 @{
     ViewBag.Title = "Index";
@@ -46,16 +46,16 @@
             @Html.DisplayNameFor(model => model.estemp)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nomdis)
+            @Html.DisplayNameFor(model => model.distrito.nomdis)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nomrol)
+            @Html.DisplayNameFor(model => model.rol.nomrol)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nomsex)
+            @Html.DisplayNameFor(model => model.sexo.nomsex)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nomtipd)
+            @Html.DisplayNameFor(model => model.tipodocumento.nomtipd)
         </th>
         <th></th>
     </tr>
@@ -97,16 +97,16 @@
                 @Html.DisplayFor(modelItem => item.estemp)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nomdis)
+                @Html.DisplayFor(modelItem => item.distrito.nomdis)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nomrol)
+                @Html.DisplayFor(modelItem => item.rol.nomrol)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nomsex)
+                @Html.DisplayFor(modelItem => item.sexo.nomsex)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nomtipd)
+                @Html.DisplayFor(modelItem => item.tipodocumento.nomtipd)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.codemp }) |

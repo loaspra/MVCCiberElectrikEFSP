@@ -18,7 +18,7 @@ namespace pe.com.cibereletrik.Controllers
         // GET: TipoDocumento
         public ActionResult Index()
         {
-            var lista = db.Database.SqlQuery<SP_MostrarTipoDocumentoTodo_Result>("SP_MostrarTipoDocumentoTodo").ToList();
+            var lista = db.Database.SqlQuery<tipodocumento>("SP_MostrarTipoDocumentoTodo").ToList();
             return View(lista);
         }
 

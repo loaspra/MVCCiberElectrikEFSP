@@ -1,4 +1,4 @@
-﻿@model IEnumerable<pe.com.ciberelectrik.SP_MostrarTicketPedidoTodo_Result>
+﻿@model IEnumerable<pe.com.cibereletrik.ticketpedido>
 
 @{
     ViewBag.Title = "Index";
@@ -19,10 +19,10 @@
             @Html.DisplayNameFor(model => model.estped)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nomcli)
+            @Html.DisplayNameFor(model => model.cliente.nomcli)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nomemp)
+            @Html.DisplayNameFor(model => model.empleado.nomemp)
         </th>
         <th></th>
     </tr>
@@ -36,10 +36,10 @@
             @Html.DisplayFor(modelItem => item.estped)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.nomcli)
+            @Html.DisplayFor(modelItem => item.cliente.nomcli)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.nomemp)
+            @Html.DisplayFor(modelItem => item.empleado.nomemp)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.nroped }) |

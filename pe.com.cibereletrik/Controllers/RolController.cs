@@ -18,7 +18,7 @@ namespace pe.com.cibereletrik.Controllers
         // GET: Rol
         public ActionResult Index()
         {
-            var lista = db.Database.SqlQuery<SP_MostrarRolTodo_Result>("SP_MostrarRolTodo").ToList();
+            var lista = db.Database.SqlQuery<rol>("SP_MostrarRolTodo").ToList();
             return View(lista);
         }
 

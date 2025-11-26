@@ -18,7 +18,7 @@ namespace pe.com.cibereletrik.Controllers
         // GET: TicketPedido
         public ActionResult Index()
         {
-            var lista = db.Database.SqlQuery<SP_MostrarTicketPedidoTodo_Result>("SP_MostrarTicketPedidoTodo").ToList();
+            var lista = db.Database.SqlQuery<ticketpedido>("SP_MostrarTicketPedidoTodo").ToList();
             return View(lista);
         }
 

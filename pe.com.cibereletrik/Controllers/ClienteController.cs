@@ -18,7 +18,7 @@ namespace pe.com.cibereletrik.Controllers
         // GET: Cliente
         public ActionResult Index()
         {
-            var lista = db.SP_MostrarClienteTodo().ToList();
+            var lista = db.Database.SqlQuery<cliente>("SP_MostrarClienteTodo").ToList();
             return View(lista);
         }
 

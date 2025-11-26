@@ -18,7 +18,7 @@ namespace pe.com.cibereletrik.Controllers
         // GET: Sexo
         public ActionResult Index()
         {
-            var lista = db.Database.SqlQuery<SP_MostrarSexoTodo_Result>("SP_MostrarSexoTodo").ToList();
+            var lista = db.Database.SqlQuery<sexo>("SP_MostrarSexoTodo").ToList();
             return View(lista);
         }
 

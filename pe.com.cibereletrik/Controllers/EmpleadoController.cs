@@ -18,7 +18,7 @@ namespace pe.com.cibereletrik.Controllers
         // GET: Empleado
         public ActionResult Index()
         {
-            var lista = db.SP_MostrarEmpleadoTodo().ToList();
+            var lista = db.Database.SqlQuery<empleado>("SP_MostrarEmpleadoTodo").ToList();
             return View(lista);
         }
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<pe.com.ciberelectrik.SP_MostrarClienteTodo_Result>
+﻿@model IEnumerable<pe.com.cibereletrik.cliente>
 
 @{
     ViewBag.Title = "Index";
@@ -40,13 +40,13 @@
             @Html.DisplayNameFor(model => model.estcli)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nomdis)
+            @Html.DisplayNameFor(model => model.distrito.nomdis)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nomsex)
+            @Html.DisplayNameFor(model => model.sexo.nomsex)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nomtipd)
+            @Html.DisplayNameFor(model => model.tipodocumento.nomtipd)
         </th>
         <th></th>
     </tr>
@@ -82,13 +82,13 @@
                 @Html.DisplayFor(modelItem => item.estcli)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nomdis)
+                @Html.DisplayFor(modelItem => item.distrito.nomdis)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nomsex)
+                @Html.DisplayFor(modelItem => item.sexo.nomsex)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.nomtipd)
+                @Html.DisplayFor(modelItem => item.tipodocumento.nomtipd)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.codcli }) |
