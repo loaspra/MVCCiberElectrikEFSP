@@ -217,7 +217,6 @@ namespace pe.com.cibereletrik.Controllers
             db.Database.ExecuteSqlCommand(
                 "SP_EliminarEmpleado @p0", id
                 );
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -246,9 +245,6 @@ namespace pe.com.cibereletrik.Controllers
             db.Database.ExecuteSqlCommand(
                 "SP_HabilitarEmpleado @p0", id
                 );
-            return RedirectToAction("Index");
-        }
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
