@@ -1,41 +1,46 @@
 ﻿@model IEnumerable<pe.com.cibereletrik.distrito>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Mantenimiento Distrito";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Mantenimiento Distrito</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nuevo Distrito", "Create", null, new { @class = "btn btn-nuevo" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nomdis)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estdis)
-        </th>
-        <th></th>
-    </tr>
-
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Codigo</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nomdis)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estdis)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.coddis }) |
-            @Html.ActionLink("Details", "Details", new { id=item.coddis }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.coddis }) |
-            @Html.ActionLink("Enable", "Enable", new { id=item.coddis })
-        </td>
-    </tr>
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.coddis)</td>
+            <td>@Html.DisplayFor(modelItem => item.nomdis)</td>
+            <td>
+                @if (item.estdis == true)
+                {
+                    <span class="badge-habilitado">Habilitado</span>
+                }
+                else
+                {
+                    <span class="badge-deshabilitado">Deshabilitado</span>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Actualizar", "Edit", new { id = item.coddis }, new { @class = "btn btn-actualizar btn-sm" })
+                @Html.ActionLink("Detalles", "Details", new { id = item.coddis }, new { @class = "btn btn-detalles btn-sm" })
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.coddis }, new { @class = "btn btn-eliminar btn-sm" })
+                @Html.ActionLink("Habilitar", "Enable", new { id = item.coddis }, new { @class = "btn btn-habilitar btn-sm" })
+            </td>
+        </tr>
 }
-
+    </tbody>
 </table>
